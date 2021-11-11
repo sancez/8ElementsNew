@@ -1,0 +1,152 @@
+=>Cat 10 22 2021
+
+membuat pagination
+*******
+PageText.cshtml
+
+//use the program code you need // use variable page and pageSize that's more importan
+//for this the program code
+
+var lang = "";
+    var id = 0;
+    var listText = [];
+    var indexId = 0;
+    var page = 0;
+    var pageSize = 10;
+
+ // need drawListContent if you din't need code just delete like => listenText to end
+ function GetPageText() {
+      GetAllPageText(lang).then(response => 
+                        JSON.parse(response)
+                    ).then(data => {
+                        listText = data;
+                        drawListContent(data);
+                    });  
+    }
+
+
+ //Start Pagination => 22/10/2021
+        function getAllEventParticipant() {
+            $.get('/rest/GetAllPageText?lang=' + lang + '&startIndex=' + page + '&pageSize=' + pageSize, function (data, status) {
+                var json = JSON.parse(data);
+                drawListContent(json.PageTexts);
+                console.log(json)
+                drawPaging(json.PageCount);
+            });
+        }
+        function movePage(i) {
+            page = i;
+            getAllEventParticipant();
+        }
+        function drawPaging(count) {
+            $("#paging").empty();
+            $("#paging").append(`
+             <li class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+    `)
+            for (var i = 0; i < count / pageSize; i++) {
+                if (i == page) {
+                    $("#paging").append(`
+                    <li class="page-item active" aria-current="page">
+                        <a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a>
+                    </li>
+    `)
+                } else {
+                    $("#paging").append(`
+                    <li class="page-item" aria-current="page">
+                        <a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a>
+                    </li>
+    `)
+                }
+
+            }
+
+            $("#paging").append(`
+                    <li class="page-item disabled">
+                        <a class="page-link"href="#" tabindex="-1" aria-disabled="true">next</a>
+                    </li>
+    `)
+        }
+    //End Pagination
+**********
+RestController.cs
+**********
+public ActionResult GetAllPageText(string lang, int startIndex = 0, int pageSize = 10)
+        {
+           // try
+           // {
+              //  var json = JsonConvert.SerializeObject(Repositories.GetAllPageText(lang, startIndex, pageSize));
+             //   return Content(json);
+            //}
+            //catch (Exception e)
+            //{
+            //    return Content(e.Message);
+           // }
+
+          
+           var data = Repositories.GetAllPageText(lang, startIndex, pageSize);//add  startIndex, pageSize
+                                                                                                             //return Content(JsonConvert.SerializeObject(data));
+           var pageCount = Repositories.GetCountPageText(lang);
+           PageTextPagingModel PageTextPagingModel = new PageTextPagingModel()
+            {
+                 PageTexts = data,
+                 PageCount = pageCount
+           };
+           return Content(JsonConvert.SerializeObject(PageTextPagingModel));
+
+        }
+***********
+Repositories.cs
+***********
+public static List<PageText> GetAllPageText(string lang,int startIndex = 0, int pageSize = 10)
+        {
+            using (var dc = new ShowtimeEntities())
+            {
+                if (!string.IsNullOrEmpty(lang))
+                {
+                    return dc.PageTexts.Where(pt => pt.LanguageCode == lang).OrderByDescending(pt => pt.Id).Skip(startIndex * pageSize).Take(pageSize).ToList();
+                }
+
+                return dc.PageTexts.OrderByDescending(pt => pt.Id).Skip(startIndex * pageSize).Take(pageSize).ToList();
+            }
+
+        }
+
+***************
+Repositories.cs => the same file
+***************
+//start pagination =>22/10/2021 2:00 PM
+        public static int GetCountPageText(string lang)
+        {
+            using (var dc = new ShowtimeEntities())
+            {
+                if (!string.IsNullOrEmpty(lang))
+                {
+                    return dc.PageTexts.Where(pt => pt.LanguageCode == lang).Count();
+                }
+
+                return dc.PageTexts.Count();
+            }
+        }
+        //end pagination
+
+****************
+PageTextPaginModel.cs
+****************
+using EightElements.Showtime.CMS.Data; => you have to add this elements 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace EightElements.Showtime.CMS.Web.Models
+{
+    public class PageTextPagingModel
+    {
+        public List<PageText> PageTexts { get; set; } // => List<PageText> this is go to define the database
+        public int PageCount { get; set; }
+
+    }
+}
+*******************
