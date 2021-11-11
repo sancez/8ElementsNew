@@ -1,4 +1,3 @@
-tes Selenjutnya
 
 Catatan 8Elements
 .net core and mvc... web
