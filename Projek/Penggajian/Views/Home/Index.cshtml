@@ -1,0 +1,337 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+
+    @*if(Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }*@
+}
+<h2>Welcome @Session["userName"]</h2>
+<hr/>
+@*@using (Html.BeginForm("PostingUsingRequest","Home")) {
+   <input type="text" name="cekId" value="2">
+    <button type="submit">Cek</button>
+}*@
+<br />
+<h3>Halaman Data User</h3> 
+    <select name="filter" onclick="roles(value)">
+        <option value="0">-- Choise ROLE--</option>
+        <option value="1">ROLE 1</option>
+        <option value="2">ROLE 2</option>
+    </select>
+    <input type="type" id="keySearch"  placeholder="Search Your Name Or Password" />
+    <button onclick="searchFunction()" id="buttonCari">Search</button>
+    <br /><br />
+          <table id="table" border="1" width="300px">
+              <thead>
+                  <tr>
+                      <td>nama >< Password </td>
+                      <td>Password >< nama</td>
+                      <td>Role</td>
+                      <td>Edit</td>
+                      <td>Hapus</td>
+                  </tr>
+              </thead>
+              <tbody id="tableBody">
+              </tbody>                  
+          </table>
+          <nav aria-label="...">
+              <ul class="pagination" id="paging">
+                        
+              </ul>
+          </nav>
+<br />
+
+   <h3>Tambah Data User</h3>
+    <table>
+        <tr>
+            <td>Username</td>
+            <td><input type="text" id="user" /></td>
+            <td><input type="text" id="id" value="0" hidden /></td>
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="text" id="pass" /></td>
+        </tr>
+        <tr>
+            <td>Role</td>
+            <td>
+                <select id="role">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td><button type="button" onclick="adds()">Add Data</button></td>
+        </tr>
+    </table>
+<br>
+ <h4>Edit Data</h4>
+ <table>
+     <tr>
+         <td>Username</td>
+         <td><input type="text" id="editUser" /></td>
+     </tr>
+     <tr>
+         <td>Password</td>
+         <td><input type="text" id="editPass" /></td>
+     </tr>
+     <tr>
+         <td>Role</td>
+         <td>
+             <select id="editRole">
+                 <option value="1">1</option>
+                 <option value="2">2</option>
+             </select>
+         </td>
+     </tr>
+     <tr>
+         <td><button type="button" onclick="edits()">Edit Data</button></td>
+     </tr>
+ </table>
+
+ 
+
+<br />
+<br />
+
+<a href="@Url.Action("Logout", "Login")">Logout</a>
+<script type="text/javascript" language="javascript"> 
+    $(document).ready(function () {
+        GetAllUsers();
+        GetAllUserPagination()
+    });
+    function GetAllUsers() {
+        var userVar = "";
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: '/Home/GetAllUser',
+            dataType: 'JSON',
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                if (response.Success) {
+                    $('#tableBody').empty();
+                    $.each(response.data,
+                        function (index, value) {
+                            userVar += '<tr><td>' + value.password +
+                                '</td><td>' + value.username + '</td><td>' +
+                                value.role +
+                                '</td><td>' + '<input type="button" value="Edit" onclick="Edits(' + value.idCon + ')">' +
+                                '</td><td>' + '<input type="button" value="Delete" onclick="Deletes(' + value.idCon + ')">' + '</td></tr>';
+                        }
+                    );
+                    $('#tableBody').find('tr:gt(0)').remove();
+                    $('#tableBody').append(userVar);
+                }
+            },
+            error: function () {
+                alert("there is problem to user => this is alert function");
+            }
+        })
+    }
+    function ResetAllUser() {
+        $('#user').val("");
+        $('#pass').val("");
+        $('#role').val("");
+        $('#editUser').val("");
+        $('#editPass').val("");
+    }
+    function roles(roleid) {
+        var userVar = "";
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: '/Home/FilterRole?rolevar=' + roleid,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                if (response.Success) {
+                    $('#tableBody').empty();
+                    $.each(response.data,
+                        function (index, value) {
+                            userVar += '<tr><td>' + value.password +
+                                '</td><td>' + value.username + '</td><td>' +
+                                value.role +
+                                '</td><td>' + '<input type="button" value="Edit" onclick="Edits(' + value.idCon + ')">' +
+                                '</td><td>' + '<input type="button" value="Delete" onclick="Deletes(' + value.idCon + ')">' + '</td></tr>';
+                        }
+                    );
+                    $('#tableBody').find('tr:gt(0)').remove();
+                    $('#tableBody').append(userVar);
+                }
+            },
+            error: function () {
+                alert("there is problem to user => this is alert function");
+            }
+        })
+    }    
+    function searchFunction() {
+        var key = document.getElementById("keySearch").value;
+        var userVar = "";
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: '/Home/search?searchVal=' + key,
+            dataType: 'JSON',
+            contentType: 'application/json;charset=utf-8',
+            success: function (response) {
+                if (response.Success) {
+                    $('#tableBody').empty();
+                    $.each(response.data,
+                        function (index, value) {
+                            userVar += '<tr><td>' + value.password +
+                                '</td><td>' + value.username + '</td><td>' +
+                                value.role +
+                                '</td><td>' + '<input type="button" value="Edit" onclick="Edits(' + value.idCon + ')">' +
+                                '</td><td>' + '<input type="button" value="Delete" onclick="Deletes(' + value.idCon + ')">' + '</td></tr>';
+                        }
+                    );
+                    $('#tableBody').find('tr:gt(0)').remove();
+                    $('#tableBody').append(userVar);
+                }
+            },
+            error: function () {
+                alert("there is problem to user => this is alert function");
+            }
+        })
+    }
+    function adds() {
+        var dataVar = {
+            Id:$('#id').val(),//update data and add data the same program code , the Defference add data value = 0 and update you must give a value with textboxt or etc value >= 1 or string
+            username: $('#user').val(),//username the same name in controller that must be the same name
+            password: $('#pass').val(),
+            role: $('#role').val(),
+        }
+        var errorMessage = "";
+        $.ajax({
+            async: true,
+            type: 'POST',
+            url: '/Home/addCon',
+            data: JSON.stringify(dataVar),
+            dataType: 'JSON',
+            contentType: 'application/json;charset=utf-8',
+            success: function (data) {
+                if (data.Success) {
+                    alert(data.Message);                    
+                    GetAllUsers();
+                    ResetAllUser();
+                } else {
+                    $.each(data.errorList, function (index, value) {
+                        errorMessage += value + '<br>';
+                    });
+                    $('#ErrorMessage').empty();
+                    $('#ErrorMessage').append(errorMessage);
+                }
+            },
+            error: function () {
+                alert('There is Some Problem to add update employee..');
+            }
+        });
+    }
+    function Deletes(IdFunct) {
+        var IdFunct = { Id: IdFunct};//Id Must Be same with Controller
+        var checkConfirm = confirm('Are You Sure You Want To Delete The Data');
+        if (checkConfirm === true) {
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: '/Home/DeleteData',
+                data: JSON.stringify(IdFunct),
+                contentType: 'application/json;charset=utf-8',
+                success: function (data) {
+                    if (data.Success) {
+                        alert(data.Message);
+                        GetAllUsers();
+                        ResetAllUser();
+                    } else {
+                        alert(data.Message);
+                    }
+                },
+                error: function () {
+                    alert('There Is Some Problem With Delete Operation.');
+                }
+            });
+        } else {
+            return false;
+        }
+        
+    }
+    //Start paggination
+    var page = 0;
+    var pageSize = 10;
+    function GetAllUserPagination() {
+        $.get('/Home/GetAllUserPagination?startIndex=' + page + '&pageSize=' + pageSize, function (data, status) {
+            var json = JSON.parse(data);
+            GetAllUsers();
+            console.log(json);
+            drawPaging(json.pageCount);
+        });
+    }
+    function movePage(i) {
+        page = i;
+        console.log(i);
+        GetAllUserPagination();
+    }
+    function drawPaging(count) {
+        var beforePage = 2;
+        var nextPage = 3;
+        var totalPage = count > pageSize ? count / pageSize : 1;
+        var limitPage = nextPage + page >= totalPage ? totalPage : page + nextPage;
+        var firstPage = page - beforePage >= 0 ? page - beforePage : 0;
+        @* console.log(totalpage, 'test total') *@
+
+        $("#paging").empty();
+        if (page <= 0) {
+            $("#paging").append(`<li class="page-item disabled ">
+                            <a class="page-link" href="#" tabindex="-1" onclick="movePage(${page - 1})">Previous</a> </li>`)
+        } else {
+
+            $("#paging").append(`<li class="page-item ">
+                            <a class="page-link" href="#" tabindex="-1" onclick="movePage(${page - 1})">Previous</a> </li>`)
+        }
+
+        for (var i = firstPage; i < limitPage; i++) {
+            if (i == page) {
+                $("#paging").append(`<li class="page-item active" aria-current="page">
+                            <a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a> </li>`)
+            } else {
+                $("#paging").append(`<li class="page-item" aria-current="page">
+                            <a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a></li>`)
+            }
+        }
+
+        if (page >= totalPage - 1) {
+            $("#paging").append(`<li class="page-item disabled">
+                            <a class="page-link"href="#" tabindex="-1" ">next</a></li>`)
+        } else {
+            $("#paging").append(`<li class="page-item">
+                            <a class="page-link"href="#" tabindex="-1" onclick="movePage(${page + 1})">next</a> </li>`)
+        }
+    }
+        //End Pagination
+    function Edits(idCon) {
+        $.ajax({
+            async: true,
+            type: 'GET',
+            url: '/Home/EditData',
+            data: { id: idCon },
+            dataType: 'JSON',
+            contentType: 'application/json;charset=utf-8',
+            success: function (data) {
+                $('#editUser').val(data.username);
+                $('#editPass').val(data.password);
+                $('#editRole').val(data.role);
+            },
+            error: function () {
+                alert('there is some problem with delete operation..');
+            }
+        });
+        ResetAllUser();
+    }
+</script>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+
