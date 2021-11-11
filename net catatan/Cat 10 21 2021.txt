@@ -1,0 +1,7 @@
+=> Cat 10 21 2021
+Query URM
+https://www.entityframeworktutorial.net/querying-entity-graph-in-entity-framework.aspx
+
+sample coding for url
+https://localhost:44335/Rest/GetAllEventParticipant?eventId=2&eventCategory=1&startIndex=0&pageSize=1
+
