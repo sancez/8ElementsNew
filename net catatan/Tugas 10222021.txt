@@ -1,0 +1,17 @@
+Tugas
+
+ * Bootstrap v4.5.3 (https://getbootstrap.com/)
+https://localhost:44335/Home/Content
+https://localhost:44335/Rest/GetAllEventParticipant?eventId=1&eventCategory=0&startIndex=0&pageSize=2
+
+
+
+https://localhost:44335/Portal/PageText
+https://localhost:44335/Rest/GetAllPageText?lang=en&startIndex=1&pageSize=10
+
+================>
+
+https://localhost:44335/Portal
+https://localhost:44335/Rest/GetAllEvent
+https://localhost:44335/Rest/GetAllEvent?startIndex=0&pageSize=10
+
