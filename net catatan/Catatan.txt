@@ -1,4 +1,4 @@
-test satu
+
 Catatan 8Elements
 .net core and mvc... web
 
