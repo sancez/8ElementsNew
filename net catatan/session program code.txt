@@ -1,0 +1,83 @@
+Make A session in mvc
+
+public ActionResult Autherize(UserAdmin userModel)
+        {
+            using (ShowtimeEntities db = new ShowtimeEntities())
+            {
+                /*Dont forget to start your vpn*/
+                Repositories.Autherize(userModel);
+                var userDetails = db.UserAdmins.Where(x => x.UserName == userModel.UserName && x.Password == userModel.Password).FirstOrDefault();
+                Session["errorMessage"] = null;
+                if (userDetails == null)
+                {
+                    userModel.LoginErrormessage = "Wrong Username or Password.";
+                    Session["errorMessage"] = "Wrong Username or Password.";
+                    //ViewData["Message"] = "Wrong Username or Password.";
+                    return View("index");
+
+                }
+                else
+                {
+                    Session["userID"] = userDetails.ID;
+                    Session["userName"] = userDetails.UserName;
+                    return RedirectToAction("index", "Home");
+                }
+            }
+            return View();
+        }
+
+This is for view
+<h2>Welcome @Session["userName"]</h2>
+
+and here for contoller again when you want update with user session
+RestController.cs
+
+public ActionResult AddOrUpdatePageText([FromBody] PageTextModel body)//Add And Update
+        {
+            PageText pageText = new PageText();
+            var logger = Session["userName"];
+            pageText.Id = body.id;
+            pageText.Key = body.key;
+            pageText.Text = body.text;
+            pageText.LastUpdateDate = DateTime.Now;
+            pageText.LastUpdateBy = (string)logger;
+            pageText.LanguageCode = body.lang;
+            if (body.id < 1)
+            {
+                pageText.CreateDate = DateTime.Now;
+                pageText.CreateBy = "";            
+            }
+            Repositories.AddOrUpdatePageTexts(pageText,(string)logger);
+            return Content("ok");
+        }
+
+
+and this is for restories.cs
+
+public static PageText AddOrUpdatePageTexts(PageText value ,string logger)//Add And Update
+        {
+            using (var dc = new ShowtimeEntities())
+            {
+                var pageText = dc.PageTexts.Where(pt => pt.Id == value.Id).FirstOrDefault();
+                if (pageText != null)
+                {                    
+                    pageText.Text = value.Text;
+                    pageText.Key = value.Key;
+                    pageText.LanguageCode = value.LanguageCode;
+                    pageText.LastUpdateDate = DateTime.Now;
+                    pageText.LastUpdateBy = (string)logger;
+                    dc.SaveChanges();
+                    return pageText;
+                }
+
+                pageText = dc.PageTexts.Add(value);
+                dc.SaveChanges();
+                return pageText;
+            }
+        }
+
+
+
+
+
+
