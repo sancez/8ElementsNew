@@ -1,0 +1,519 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="eShowTimeModelStoreContainer" CdmEntityContainer="ShowtimeEntities">
+    <FunctionImportMapping FunctionImportName="ReportNewuser" FunctionName="eShowTimeModel.Store.ReportNewuser">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="eShowTimeModel.ReportNewuser_Result">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="UserDetails">
+      <EntityTypeMapping TypeName="eShowTimeModel.UserDetail">
+        <MappingFragment StoreEntitySet="UserDetail">
+          <ScalarProperty Name="Credit" ColumnName="Credit" />
+          <ScalarProperty Name="ProfileBanner" ColumnName="ProfileBanner" />
+          <ScalarProperty Name="ProfilePicture" ColumnName="ProfilePicture" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Country" ColumnName="Country" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+          <ScalarProperty Name="RealName" ColumnName="RealName" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PromotionHistories">
+      <EntityTypeMapping TypeName="eShowTimeModel.PromotionHistory">
+        <MappingFragment StoreEntitySet="PromotionHistory">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+          <ScalarProperty Name="Pause" ColumnName="Pause" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Rules" ColumnName="Rules" />
+          <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActionTrackings">
+      <EntityTypeMapping TypeName="eShowTimeModel.ActionTracking">
+        <MappingFragment StoreEntitySet="ActionTracking">
+          <ScalarProperty Name="TrackingCookieId" ColumnName="TrackingCookieId" />
+          <ScalarProperty Name="GeolocationId" ColumnName="GeolocationId" />
+          <ScalarProperty Name="LandingPage" ColumnName="LandingPage" />
+          <ScalarProperty Name="PubId" ColumnName="PubId" />
+          <ScalarProperty Name="Campaign" ColumnName="Campaign" />
+          <ScalarProperty Name="TrafficSource" ColumnName="TrafficSource" />
+          <ScalarProperty Name="TrackingType" ColumnName="TrackingType" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RequestUrl" ColumnName="RequestUrl" />
+          <ScalarProperty Name="RefererUrl" ColumnName="RefererUrl" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Contents">
+      <EntityTypeMapping TypeName="eShowTimeModel.Content">
+        <MappingFragment StoreEntitySet="Content">
+          <ScalarProperty Name="ContentAgeRatingId" ColumnName="ContentAgeRatingId" />
+          <ScalarProperty Name="ContentClassificationId" ColumnName="ContentClassificationId" />
+          <ScalarProperty Name="ContentCategoryId" ColumnName="ContentCategoryId" />
+          <ScalarProperty Name="IsCP" ColumnName="IsCP" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentFeedbacks">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentFeedback">
+        <MappingFragment StoreEntitySet="ContentFeedback">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentItems">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentItem">
+        <MappingFragment StoreEntitySet="ContentItem">
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ContentTypeId" ColumnName="ContentTypeId" />
+          <ScalarProperty Name="ContentPath" ColumnName="ContentPath" />
+          <ScalarProperty Name="ContentSource" ColumnName="ContentSource" />
+          <ScalarProperty Name="Filename" ColumnName="Filename" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentRatings">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentRating">
+        <MappingFragment StoreEntitySet="ContentRating">
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentTransactions">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentTransaction">
+        <MappingFragment StoreEntitySet="ContentTransaction">
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="CreditUsed" ColumnName="CreditUsed" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentTypes">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentType">
+        <MappingFragment StoreEntitySet="ContentType">
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="eShowTimeModel.Event">
+        <MappingFragment StoreEntitySet="Event">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventCategories">
+      <EntityTypeMapping TypeName="eShowTimeModel.EventCategory">
+        <MappingFragment StoreEntitySet="EventCategory">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventDetails">
+      <EntityTypeMapping TypeName="eShowTimeModel.EventDetail">
+        <MappingFragment StoreEntitySet="EventDetail">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ContentPath" ColumnName="ContentPath" />
+          <ScalarProperty Name="ContentSource" ColumnName="ContentSource" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventEliminates">
+      <EntityTypeMapping TypeName="eShowTimeModel.EventEliminate">
+        <MappingFragment StoreEntitySet="EventEliminate">
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="EliminationDate" ColumnName="EliminationDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="EventParticipantId" ColumnName="EventParticipantId" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventParticipants">
+      <EntityTypeMapping TypeName="eShowTimeModel.EventParticipant">
+        <MappingFragment StoreEntitySet="EventParticipant">
+          <ScalarProperty Name="EventCategoryId" ColumnName="EventCategoryId" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EventVotes">
+      <EntityTypeMapping TypeName="eShowTimeModel.EventVote">
+        <MappingFragment StoreEntitySet="EventVote">
+          <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+          <ScalarProperty Name="TotalVote" ColumnName="TotalVote" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="StatusMessage" ColumnName="StatusMessage" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="EventParticipantId" ColumnName="EventParticipantId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Geolocations">
+      <EntityTypeMapping TypeName="eShowTimeModel.Geolocation">
+        <MappingFragment StoreEntitySet="Geolocation">
+          <ScalarProperty Name="ASN" ColumnName="ASN" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="CountryCode" ColumnName="CountryCode" />
+          <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ISP" ColumnName="ISP" />
+          <ScalarProperty Name="IpAddress" ColumnName="IpAddress" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logs">
+      <EntityTypeMapping TypeName="eShowTimeModel.Log">
+        <MappingFragment StoreEntitySet="Log">
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Logger" ColumnName="Logger" />
+          <ScalarProperty Name="Thread" ColumnName="Thread" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Server" ColumnName="Server" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Log_Sandbox">
+      <EntityTypeMapping TypeName="eShowTimeModel.Log_Sandbox">
+        <MappingFragment StoreEntitySet="Log_Sandbox">
+          <ScalarProperty Name="Exception" ColumnName="Exception" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="Logger" ColumnName="Logger" />
+          <ScalarProperty Name="Thread" ColumnName="Thread" />
+          <ScalarProperty Name="Level" ColumnName="Level" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Server" ColumnName="Server" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="News">
+      <EntityTypeMapping TypeName="eShowTimeModel.News">
+        <MappingFragment StoreEntitySet="News">
+          <ScalarProperty Name="ProjectCode" ColumnName="ProjectCode" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="BlockContentType" ColumnName="BlockContentType" />
+          <ScalarProperty Name="VideoUrl" ColumnName="VideoUrl" />
+          <ScalarProperty Name="BlockType" ColumnName="BlockType" />
+          <ScalarProperty Name="PublishedBy" ColumnName="PublishedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="IsPublished" ColumnName="IsPublished" />
+          <ScalarProperty Name="RelatedNews" ColumnName="RelatedNews" />
+          <ScalarProperty Name="ExpiredDate" ColumnName="ExpiredDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="PublishedDate" ColumnName="PublishedDate" />
+          <ScalarProperty Name="ContentTemplate" ColumnName="ContentTemplate" />
+          <ScalarProperty Name="MobileThumbnail" ColumnName="MobileThumbnail" />
+          <ScalarProperty Name="WebThumbnail" ColumnName="WebThumbnail" />
+          <ScalarProperty Name="ShortDescription" ColumnName="ShortDescription" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+          <ScalarProperty Name="NewsType" ColumnName="NewsType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PageTexts">
+      <EntityTypeMapping TypeName="eShowTimeModel.PageText">
+        <MappingFragment StoreEntitySet="PageText">
+          <ScalarProperty Name="LastUpdateBy" ColumnName="LastUpdateBy" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="LanguageCode" ColumnName="LanguageCode" />
+          <ScalarProperty Name="Text" ColumnName="Text" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PortalConfigs">
+      <EntityTypeMapping TypeName="eShowTimeModel.PortalConfig">
+        <MappingFragment StoreEntitySet="PortalConfig">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Key" ColumnName="Key" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PostbackTrackings">
+      <EntityTypeMapping TypeName="eShowTimeModel.PostbackTracking">
+        <MappingFragment StoreEntitySet="PostbackTracking">
+          <ScalarProperty Name="Payout" ColumnName="Payout" />
+          <ScalarProperty Name="StatusDescription" ColumnName="StatusDescription" />
+          <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+          <ScalarProperty Name="Partner" ColumnName="Partner" />
+          <ScalarProperty Name="RequestLink" ColumnName="RequestLink" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="ActionTrackingId" ColumnName="ActionTrackingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promotions">
+      <EntityTypeMapping TypeName="eShowTimeModel.Promotion">
+        <MappingFragment StoreEntitySet="Promotion">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Disabled" ColumnName="Disabled" />
+          <ScalarProperty Name="Pause" ColumnName="Pause" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+          <ScalarProperty Name="Rules" ColumnName="Rules" />
+          <ScalarProperty Name="EventId" ColumnName="EventId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RedirectTrackings">
+      <EntityTypeMapping TypeName="eShowTimeModel.RedirectTracking">
+        <MappingFragment StoreEntitySet="RedirectTracking">
+          <ScalarProperty Name="GuestInfo" ColumnName="GuestInfo" />
+          <ScalarProperty Name="RedirectUrl" ColumnName="RedirectUrl" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+          <ScalarProperty Name="Reference" ColumnName="Reference" />
+          <ScalarProperty Name="ActionTrackingId" ColumnName="ActionTrackingId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SpaceTimes">
+      <EntityTypeMapping TypeName="eShowTimeModel.SpaceTime">
+        <MappingFragment StoreEntitySet="SpaceTime">
+          <ScalarProperty Name="LastUpdate" ColumnName="LastUpdate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SubscriptionPrices">
+      <EntityTypeMapping TypeName="eShowTimeModel.SubscriptionPrice">
+        <MappingFragment StoreEntitySet="SubscriptionPrice">
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="SubscriptionType" ColumnName="SubscriptionType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="eShowTimeModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrackingCookies">
+      <EntityTypeMapping TypeName="eShowTimeModel.TrackingCookie">
+        <MappingFragment StoreEntitySet="TrackingCookie">
+          <ScalarProperty Name="Token" ColumnName="Token" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TrackingExtensions">
+      <EntityTypeMapping TypeName="eShowTimeModel.TrackingExtension">
+        <MappingFragment StoreEntitySet="TrackingExtension">
+          <ScalarProperty Name="TrackingType" ColumnName="TrackingType" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="value" ColumnName="value" />
+          <ScalarProperty Name="Label" ColumnName="Label" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="ActionTrackingId" ColumnName="ActionTrackingId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TransactionCallbacks">
+      <EntityTypeMapping TypeName="eShowTimeModel.TransactionCallback">
+        <MappingFragment StoreEntitySet="TransactionCallback">
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="PaymentTransactionId" ColumnName="PaymentTransactionId" />
+          <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+          <ScalarProperty Name="CallbackData" ColumnName="CallbackData" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="eShowTimeModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="ProfileName" ColumnName="ProfileName" />
+          <ScalarProperty Name="C_Image" ColumnName="_Image" />
+          <ScalarProperty Name="C_DisplayName" ColumnName="_DisplayName" />
+          <ScalarProperty Name="C_ExternalLoginId" ColumnName="_ExternalLoginId" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserbaseId" ColumnName="UserbaseId" />
+          <ScalarProperty Name="LoginId" ColumnName="LoginId" />
+          <ScalarProperty Name="Provider" ColumnName="Provider" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Subscriptions">
+      <EntityTypeMapping TypeName="eShowTimeModel.Subscription">
+        <MappingFragment StoreEntitySet="Subscription">
+          <ScalarProperty Name="Uid" ColumnName="Uid" />
+          <ScalarProperty Name="PaymentSource" ColumnName="PaymentSource" />
+          <ScalarProperty Name="TrafficSource" ColumnName="TrafficSource" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Method" ColumnName="Method" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
+          <ScalarProperty Name="LastUpdateDate" ColumnName="LastUpdateDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserAdmins">
+      <EntityTypeMapping TypeName="eShowTimeModel.UserAdmin">
+        <MappingFragment StoreEntitySet="UserAdmin">
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="LastModifiedDate" ColumnName="LastModifiedDate" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentAgeRatings">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentAgeRating">
+        <MappingFragment StoreEntitySet="ContentAgeRating">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentCategories">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentCategory">
+        <MappingFragment StoreEntitySet="ContentCategory">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentCategoryPlatformMaps">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentCategoryPlatformMap">
+        <MappingFragment StoreEntitySet="ContentCategoryPlatformMap">
+          <ScalarProperty Name="PlatformId" ColumnName="PlatformId" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentClassifications">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentClassification">
+        <MappingFragment StoreEntitySet="ContentClassification">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentPlatforms">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentPlatform">
+        <MappingFragment StoreEntitySet="ContentPlatform">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ContentTags">
+      <EntityTypeMapping TypeName="eShowTimeModel.ContentTag">
+        <MappingFragment StoreEntitySet="ContentTag">
+          <ScalarProperty Name="Tag" ColumnName="Tag" />
+          <ScalarProperty Name="ContentId" ColumnName="ContentId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bf4efbcadbfc46cbae6bea0525591566" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="eShowTimeModel.UserDetail" Width="1.5" PointX="0.625" PointY="9.25" />
+        <EntityTypeShape EntityType="eShowTimeModel.PromotionHistory" Width="1.5" PointX="8.625" PointY="12" />
+        <EntityTypeShape EntityType="eShowTimeModel.ActionTracking" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.Content" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentFeedback" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentItem" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentRating" Width="1.5" PointX="4.75" PointY="4.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentTransaction" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentType" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.Event" Width="1.5" PointX="6.75" PointY="3.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.EventCategory" Width="1.5" PointX="6.75" PointY="6.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.EventDetail" Width="1.5" PointX="2.75" PointY="6.875" />
+        <EntityTypeShape EntityType="eShowTimeModel.EventEliminate" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.EventParticipant" Width="1.5" PointX="8.75" PointY="3.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.EventVote" Width="1.5" PointX="8.625" PointY="7" />
+        <EntityTypeShape EntityType="eShowTimeModel.Geolocation" Width="1.5" PointX="4.875" PointY="8.375" />
+        <EntityTypeShape EntityType="eShowTimeModel.Log" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.Log_Sandbox" Width="1.5" PointX="10.75" PointY="4.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.News" Width="1.5" PointX="10.875" PointY="8.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.PageText" Width="1.5" PointX="12.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.PortalConfig" Width="1.5" PointX="12.75" PointY="4.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.PostbackTracking" Width="1.5" PointX="2.875" PointY="9.875" />
+        <EntityTypeShape EntityType="eShowTimeModel.Promotion" Width="1.5" PointX="13.625" PointY="8" />
+        <EntityTypeShape EntityType="eShowTimeModel.RedirectTracking" Width="1.5" PointX="13.75" PointY="11.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.SpaceTime" Width="1.5" PointX="14.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.SubscriptionPrice" Width="1.5" PointX="14.75" PointY="3.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.sysdiagram" Width="1.5" PointX="15.75" PointY="6.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.TrackingCookie" Width="1.5" PointX="15.75" PointY="9.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.TrackingExtension" Width="1.5" PointX="11.75" PointY="14.5" />
+        <EntityTypeShape EntityType="eShowTimeModel.TransactionCallback" Width="1.5" PointX="15.75" PointY="12.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.User" Width="1.5" PointX="16.75" PointY="0.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.Subscription" Width="1.5" PointX="4.875" PointY="11.625" />
+        <EntityTypeShape EntityType="eShowTimeModel.UserAdmin" Width="1.5" PointX="6.875" PointY="10.375" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentAgeRating" Width="1.5" PointX="0.75" PointY="13.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentCategory" Width="1.5" PointX="2.75" PointY="15.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentCategoryPlatformMap" Width="1.5" PointX="4.75" PointY="15.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentClassification" Width="1.5" PointX="6.75" PointY="15.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentPlatform" Width="1.5" PointX="8.75" PointY="15.75" />
+        <EntityTypeShape EntityType="eShowTimeModel.ContentTag" Width="1.5" PointX="14.75" PointY="16.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

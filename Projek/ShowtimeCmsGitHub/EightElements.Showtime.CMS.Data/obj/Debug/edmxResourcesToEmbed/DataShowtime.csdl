@@ -1,0 +1,521 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="eShowTimeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ShowtimeEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="ReportNewuser" ReturnType="Collection(eShowTimeModel.ReportNewuser_Result)" />
+    <EntitySet Name="UserDetails" EntityType="eShowTimeModel.UserDetail" />
+    <EntitySet Name="PromotionHistories" EntityType="eShowTimeModel.PromotionHistory" />
+    <EntitySet Name="ActionTrackings" EntityType="eShowTimeModel.ActionTracking" />
+    <EntitySet Name="Contents" EntityType="eShowTimeModel.Content" />
+    <EntitySet Name="ContentFeedbacks" EntityType="eShowTimeModel.ContentFeedback" />
+    <EntitySet Name="ContentItems" EntityType="eShowTimeModel.ContentItem" />
+    <EntitySet Name="ContentRatings" EntityType="eShowTimeModel.ContentRating" />
+    <EntitySet Name="ContentTransactions" EntityType="eShowTimeModel.ContentTransaction" />
+    <EntitySet Name="ContentTypes" EntityType="eShowTimeModel.ContentType" />
+    <EntitySet Name="Events" EntityType="eShowTimeModel.Event" />
+    <EntitySet Name="EventCategories" EntityType="eShowTimeModel.EventCategory" />
+    <EntitySet Name="EventDetails" EntityType="eShowTimeModel.EventDetail" />
+    <EntitySet Name="EventEliminates" EntityType="eShowTimeModel.EventEliminate" />
+    <EntitySet Name="EventParticipants" EntityType="eShowTimeModel.EventParticipant" />
+    <EntitySet Name="EventVotes" EntityType="eShowTimeModel.EventVote" />
+    <EntitySet Name="Geolocations" EntityType="eShowTimeModel.Geolocation" />
+    <EntitySet Name="Logs" EntityType="eShowTimeModel.Log" />
+    <EntitySet Name="Log_Sandbox" EntityType="eShowTimeModel.Log_Sandbox" />
+    <EntitySet Name="News" EntityType="eShowTimeModel.News" />
+    <EntitySet Name="PageTexts" EntityType="eShowTimeModel.PageText" />
+    <EntitySet Name="PortalConfigs" EntityType="eShowTimeModel.PortalConfig" />
+    <EntitySet Name="PostbackTrackings" EntityType="eShowTimeModel.PostbackTracking" />
+    <EntitySet Name="Promotions" EntityType="eShowTimeModel.Promotion" />
+    <EntitySet Name="RedirectTrackings" EntityType="eShowTimeModel.RedirectTracking" />
+    <EntitySet Name="SpaceTimes" EntityType="eShowTimeModel.SpaceTime" />
+    <EntitySet Name="SubscriptionPrices" EntityType="eShowTimeModel.SubscriptionPrice" />
+    <EntitySet Name="sysdiagrams" EntityType="eShowTimeModel.sysdiagram" />
+    <EntitySet Name="TrackingCookies" EntityType="eShowTimeModel.TrackingCookie" />
+    <EntitySet Name="TrackingExtensions" EntityType="eShowTimeModel.TrackingExtension" />
+    <EntitySet Name="TransactionCallbacks" EntityType="eShowTimeModel.TransactionCallback" />
+    <EntitySet Name="Users" EntityType="eShowTimeModel.User" />
+    <EntitySet Name="Subscriptions" EntityType="eShowTimeModel.Subscription" />
+    <EntitySet Name="UserAdmins" EntityType="eShowTimeModel.UserAdmin" />
+    <EntitySet Name="ContentAgeRatings" EntityType="eShowTimeModel.ContentAgeRating" />
+    <EntitySet Name="ContentCategories" EntityType="eShowTimeModel.ContentCategory" />
+    <EntitySet Name="ContentCategoryPlatformMaps" EntityType="eShowTimeModel.ContentCategoryPlatformMap" />
+    <EntitySet Name="ContentClassifications" EntityType="eShowTimeModel.ContentClassification" />
+    <EntitySet Name="ContentPlatforms" EntityType="eShowTimeModel.ContentPlatform" />
+    <EntitySet Name="ContentTags" EntityType="eShowTimeModel.ContentTag" />
+  </EntityContainer>
+  <ComplexType Name="ReportNewuser_Result">
+    <Property Type="Int32" Name="Id" Nullable="false" />
+    <Property Type="String" Name="Date" Nullable="true" MaxLength="30" />
+    <Property Type="Int32" Name="Total" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="UserDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="RealName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="DisplayName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Country" Type="String" MaxLength="3" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="ProfilePicture" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ProfileBanner" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Credit" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PromotionHistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PromotionId" Type="Int32" Nullable="false" />
+    <Property Name="Rules" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Pause" Type="Boolean" />
+    <Property Name="Disabled" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="ActionTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RefererUrl" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="RequestUrl" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TrackingType" Type="Int32" Nullable="false" />
+    <Property Name="TrafficSource" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Campaign" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PubId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="LandingPage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="GeolocationId" Type="Int32" />
+    <Property Name="TrackingCookieId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Content">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Status" Type="Int32" />
+    <Property Name="IsCP" Type="Boolean" Nullable="false" />
+    <Property Name="ContentCategoryId" Type="Int32" />
+    <Property Name="ContentClassificationId" Type="Int32" />
+    <Property Name="ContentAgeRatingId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ContentFeedback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ContentId" Type="Int32" Nullable="false" />
+    <Property Name="Comment" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="ContentItem">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ContentId" Type="Int32" Nullable="false" />
+    <Property Name="Filename" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ContentSource" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ContentTypeId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" />
+  </EntityType>
+  <EntityType Name="ContentRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ContentId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+    <Property Name="Flag" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentTransaction">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ContentId" Type="Int32" Nullable="false" />
+    <Property Name="CreditUsed" Type="Int32" Nullable="false" />
+    <Property Name="Remark" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContentType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Type" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="EventCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="EventDetail">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="Key" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ContentSource" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="ContentPath" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="EventEliminate">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventId" Type="Int32" />
+    <Property Name="EventParticipantId" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="EliminationDate" Type="DateTime" Precision="3" />
+    <Property Name="Exception" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="EventParticipant">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ContentId" Type="Int32" Nullable="false" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="EventCategoryId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="EventVote">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="EventParticipantId" Type="Int32" Nullable="false" />
+    <Property Name="Reference" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Status" Type="Int32" Nullable="false" />
+    <Property Name="StatusMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Amount" Type="Decimal" Precision="19" Scale="0" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="TotalVote" Type="Int32" />
+    <Property Name="PromotionId" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Geolocation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IpAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ISP" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdate" Type="DateTime" Precision="3" />
+    <Property Name="CountryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="ASN" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Log">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Server" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Level" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Thread" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Logger" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Log_Sandbox">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Server" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Level" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Thread" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Logger" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Exception" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="News">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NewsType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="ShortDescription" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="WebThumbnail" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="MobileThumbnail" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ContentTemplate" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PublishedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpiredDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RelatedNews" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="IsPublished" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="PublishedBy" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="BlockType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VideoUrl" Type="String" Nullable="false" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="BlockContentType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ProjectCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PageText">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Key" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LanguageCode" Type="String" Nullable="false" MaxLength="5" FixedLength="false" Unicode="false" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateBy" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdateBy" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="PortalConfig">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Key" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Precision="7" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="7" />
+  </EntityType>
+  <EntityType Name="PostbackTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActionTrackingId" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="RequestLink" Type="String" Nullable="false" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="Partner" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="StatusId" Type="Int32" Nullable="false" />
+    <Property Name="StatusDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Payout" Type="Double" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EventId" Type="Int32" Nullable="false" />
+    <Property Name="Rules" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Pause" Type="Boolean" />
+    <Property Name="Disabled" Type="Boolean" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="RedirectTracking">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="ActionTrackingId" Type="Int32" />
+    <Property Name="Reference" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+    <Property Name="Result" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Flag" Type="Int32" />
+    <Property Name="Remarks" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+    <Property Name="RedirectUrl" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="GuestInfo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="SpaceTime">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastUpdate" Type="DateTimeOffset" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="SubscriptionPrice">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubscriptionType" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TrackingCookie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TrackingExtension">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ActionTrackingId" Type="Int32" />
+    <Property Name="Category" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Action" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Label" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="value" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="TrackingType" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="TransactionCallback">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="CallbackData" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+    <Property Name="TransactionId" Type="Int32" />
+    <Property Name="PaymentTransactionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Provider" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="LoginId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserbaseId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="C_ExternalLoginId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="C_DisplayName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="C_Image" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="ProfileName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Subscription">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="Type" />
+      <PropertyRef Name="Method" />
+      <PropertyRef Name="Status" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="LastUpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="ExpiryDate" Type="DateTime" Precision="3" />
+    <Property Name="Type" Type="Byte" Nullable="false" />
+    <Property Name="Method" Type="Byte" Nullable="false" />
+    <Property Name="Status" Type="Byte" Nullable="false" />
+    <Property Name="TrafficSource" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PaymentSource" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Uid" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="UserAdmin">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleID" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Lastname" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LastModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentAgeRating">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContentCategory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContentCategoryPlatformMap">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+      <PropertyRef Name="PlatformId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="PlatformId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContentClassification">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContentPlatform">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="ContentTag">
+    <Key>
+      <PropertyRef Name="ContentId" />
+      <PropertyRef Name="Tag" />
+    </Key>
+    <Property Name="ContentId" Type="Int32" Nullable="false" />
+    <Property Name="Tag" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

@@ -1,0 +1,177 @@
+﻿.cursor-pointer {
+    cursor: pointer;
+}
+
+.justify-between {
+    display: flex;
+    justify-content: space-between;
+}
+.img-responsive{
+    max-width:100%;
+}
+.loading {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: show;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+/* Transparent Overlay */
+.loading:before {
+    content: '';
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+    background: -webkit-radial-gradient(rgba(20, 20, 20, .8), rgba(0, 0, 0, .8));
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.loading:not(:required) {
+    /* hide "loading..." text */
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.loading:not(:required):after {
+    content: '';
+    display: block;
+    font-size: 10px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 150ms infinite linear;
+    -moz-animation: spinner 150ms infinite linear;
+    -ms-animation: spinner 150ms infinite linear;
+    -o-animation: spinner 150ms infinite linear;
+    animation: spinner 150ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+    box-shadow: rgba(255, 255, 255, 0.75) 1.5em 0 0 0, rgba(255, 255, 255, 0.75) 1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) 0 1.5em 0 0, rgba(255, 255, 255, 0.75) -1.1em 1.1em 0 0, rgba(255, 255, 255, 0.75) -1.5em 0 0 0, rgba(255, 255, 255, 0.75) -1.1em -1.1em 0 0, rgba(255, 255, 255, 0.75) 0 -1.5em 0 0, rgba(255, 255, 255, 0.75) 1.1em -1.1em 0 0;
+}
+#listEvent {
+    cursor:pointer;
+}
+.bg-gradient-primary {
+    background: #ececec;
+}
+.sidebar-brand-icon img{
+    width:85%;
+}
+.sidebar .sidebar-brand {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align:left;
+    margin-bottom:20px;
+}
+.sidebar-dark .nav-item.active .nav-link {
+    color: #3c3c3c;
+}
+.sidebar-dark .nav-item.active .nav-link:hover,
+.sidebar-dark .nav-item.active .nav-link i {
+    color:#ff95bd; 
+}
+.sidebar .nav-item {
+    border-bottom: 1px solid #ffc6db;
+}
+.card-header h6 {
+    color: #3c3c3c;
+}
+.list-email-form{
+    margin-bottom:20px;
+}
+.list-email-form button {
+    border:1px solid #ff95bd;
+    background:#ffc6db;
+    font-family:Nunito;
+    font-size: 14px;
+    padding: 4px 20px;
+    border-radius: 4px;
+    outline:none;
+}
+table {
+    border: 1px solid #ff95bd;
+}
+.table th, .table td{
+    
+}
+table thead tr td {
+    font-weight: 700;
+    color: #3c3c3c;
+    font-size: 14px;
+    text-transform:uppercase;
+    background: #ffc6db;
+    border-right: 1px solid #ff95bd;
+}
+table tbody tr td {
+    font-size: 13px;
+    color: #3c3c3c;
+    padding-top: .65rem !important;
+    padding-bottom: .65rem !important;
+    border-bottom: 1px solid #ff95bd;
+    border-right: 1px solid #ff95bd;
+}
+table tbody tr td a{
+    font-weight:700;
+    color:#ff95bd;
+}
+table tbody tr td a:hover{
+    text-decoration:none;
+    color:#bf3f70;
+}
+table tbody tr:hover {
+    background: #f7f7f7;
+}
+table tbody tr:nth-child(even) td {
+    background: #fff8fb;
+}
+.container-fluid h2 {
+    font-weight: 700;
+    font-family: Nunito;
+    font-size: 1.5rem;
+    color: #3c3c3c;
+}
+.container-fluid h4 {
+    font-family: Nunito;
+    font-size: 1rem;
+    color: #3c3c3c;
+}
+.card-foto {
+    margin-bottom:20px;
+}
+.card-foto button{
+    display:block;
+    outline:none;
+    width:100%;
+    font-family:Nunito;
+    font-size: 14px;
+    font-weight:700;
+    text-transform:uppercase;
+    margin-bottom:10px;
+    border-radius:4px;
+    padding:8px 0;
+    border:1px solid #000;
+    background:#333;
+    color:#fff;
+}
+.card-foto button.btn-approve {
+    border:1px solid #ff95bd;
+    background:#ffc6db;
+    color:#333;
+}
+.card-foto img{
+    border:1px solid #ccc;
+    padding:2px;
+}

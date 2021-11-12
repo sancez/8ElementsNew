@@ -1,0 +1,11 @@
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EightElements.Showtime.CMS.Data.dll.config
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EightElements.Showtime.CMS.Data.dll
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EightElements.Showtime.CMS.Data.pdb
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EntityFramework.dll
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EntityFramework.xml
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\obj\Debug\EightElements.Showtime.CMS.Data.csproj.CoreCompileInputs.cache
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\obj\Debug\EightElements.Showtime.CMS.Data.csproj.CopyComplete
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\obj\Debug\EightElements.Showtime.CMS.Data.dll
+D:\8 Elements New\Projek\ShowtimeCms\EightElements.Showtime.CMS.Data\obj\Debug\EightElements.Showtime.CMS.Data.pdb
