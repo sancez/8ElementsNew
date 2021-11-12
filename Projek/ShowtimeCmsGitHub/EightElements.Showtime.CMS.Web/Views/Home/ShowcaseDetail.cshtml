@@ -1,0 +1,165 @@
+﻿@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+@using System.Web.Configuration
+@using EightElements.Showtime.CMS.Data
+@{
+    ViewBag.Title = "About";
+    List<ContentItem> list = ViewData["listContent"] as List<ContentItem>;
+    string cdn = WebConfigurationManager.AppSettings["CDN_Uri"];
+    string cdnContent = WebConfigurationManager.AppSettings["CDN_Content"];
+    string cdnVideo = WebConfigurationManager.AppSettings["CDN_Video"];
+    int index = 0;
+    int[] contentTypeArrayPublic = { 1, 2 };
+    int[] contentTypeArraySecret = { 3, 4 };
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+@{
+    foreach (var contentDetail in list.Where(value => contentTypeArrayPublic.Contains(value.ContentTypeId)))
+    {
+        <div class="row card-foto">
+            <div class="col-xs-12 col-sm-3">
+                @if (string.IsNullOrEmpty(contentDetail.ContentPath))
+                {
+                    <p>Image empty</p>
+                }
+                else
+                {
+                    if (contentDetail.ContentTypeId == 2)
+                    {
+                        <p>Banner Image</p>
+                    }
+                    else
+                    {
+                        <p>Thumbnail Image</p>
+                    }
+                    <img src="@cdn/@contentDetail.ContentPath" class="img-responsive" alt="" />
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                @if (contentDetail.Status > 0)
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,0)">Redo</button>
+                }
+                else
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">approve</button>
+                    <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">reject</button>
+                }
+                @* <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">Approve</button> *@
+                @* <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">Reject</button> *@
+            </div>
+        </div>
+    }
+    foreach (var contentDetail in list.Where(value => value.ContentTypeId == 5))
+    {
+        <div class="row card-foto">
+            <div class="col-xs-12 col-sm-3">
+                @if (string.IsNullOrEmpty(contentDetail.ContentPath))
+                {
+                    <p>Video empty</p>
+                }
+                else
+                {
+                    <video width="400" controls>
+                        <source src="@cdnVideo/@contentDetail.ContentPath" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                @if (contentDetail.Status > 0)
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,0)">Redo</button>
+                }
+                else
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">approve</button>
+                    <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">reject</button>
+                }
+                @* <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">Approve</button> *@
+                @* <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">Reject</button> *@
+            </div>
+        </div>
+    }
+    <p>Complementary Image</p>
+    foreach (var contentDetail in list.Where(value => contentTypeArraySecret.Contains(value.ContentTypeId)))
+    {
+        index++;
+        <div class="row card-foto">
+            <div class="col-xs-12 col-sm-3">
+                @if (string.IsNullOrEmpty(contentDetail.ContentPath))
+                {
+                    <p>Image empty</p>
+                }
+                else
+                {
+                    <div id="image-@index">
+                        <img src="@cdnContent/@contentDetail.ContentPath" class="img-responsive" alt="" />
+                    </div>
+
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                @if (contentDetail.Status > 0)
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,0)">Redo</button>
+                }
+                else
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">approve</button>
+                    <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">reject</button>
+                }
+                @* <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">Approve</button> *@
+                @* <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">Reject</button> *@
+            </div>
+        </div>
+    }
+}
+
+@section scripts
+{
+    <script>
+    $(document).ready(function() {
+      var data = @index;
+      for (var i = 0; i < data; i++){
+          try {
+              $("#image-" + i + " img").load(function () {
+                  var myImg = document.querySelector("#image-" + i + " img");
+                  var realWidth = myImg.naturalWidth;
+                  var realHeight = myImg.naturalHeight;
+                  $("#image-" + i).append(`<p>${realWidth} X ${realHeight}</p>`)
+              })
+          }catch (e) {
+
+          }
+      }
+    })
+        function UpdateStatus(contentDetailId,status) {
+          ApproveOrRejectContentDetail(contentDetailId,status)
+          .then(data => {
+              if (data == 'ok'){
+                  var message = '';
+                  if (status == 1){
+                      message = 'Approved';
+                  }else if (status == 2){
+                      message = 'Rejected'
+                  }
+                  alert(message);
+                  window.location.reload();
+              }
+              console.log(data);
+          })
+        }
+    </script>
+}

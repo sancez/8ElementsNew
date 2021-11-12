@@ -1,0 +1,298 @@
+﻿@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+<div class=" page-fBot2">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold ">Portal </h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <select class="form-control" id="listEvent">
+                        <option value="0">Select Event</option>
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <select id="categories" onchange="categoryId = this.value; getAllEventParticipant();" class="form-control">
+                        <option value="0">Select Category</option>
+                    </select>
+                </div>
+
+                <div class="form-group col-md-3">
+                    <select  onclick="ContentStatus(value)" class="form-control">
+                        <option value="">-- Select Status --</option>
+                        <option value="1">Approved</option>
+                        <option value="2">Rejected</option>
+                        <option value="0">Waiting Approval</option>
+                    </select>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+
+        </div>
+        <div class="card-body">
+            <div class="list-email-form">
+                <input type="text" id="search">
+                <button onclick="search()">Search</button>
+                <button onclick="getAllEventParticipant();">View all</button>                
+            </div>                
+            
+       
+            <div class="table-responsive">
+                <table class="table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <td scope="col">Cosplayer Name</td>
+                            <td scope="col">Real Name</td>
+                            <td scope="col">User Id</td>
+                            <td scope="col">Domicile</td>
+                            <td scope="col">Status</td>
+                            <td scope="col" align="center">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="listEventParticipant">
+                    </tbody>
+                </table>
+            </div>
+            <nav aria-label="...">
+                <ul class="pagination" id="paging">
+                </ul>
+            </nav>
+        </div>
+    </div>
+    @*<p>
+         <a href="Javascript:void(0)" id="send" class="back-btn" style="display:inline-block;">Send Email</a>
+     </p>*@
+</div>
+
+@section scripts
+{
+    <script>
+        // Get Table Using drawAllEventParticipant function
+        // Categories and listevent is function of dropdown
+        var eventId = 1;
+        var categoryId = 0;
+        var page = 0;
+        var pageSize = 10;
+        var status;
+
+        $(document).ready(function () {
+            GetAllEvent().then(response =>
+                JSON.parse(response)
+            ).then(data => {
+                console.log(data);
+                drawEvent(data);
+            });
+
+            $.getJSON("/rest/GetAllCategories", function (data) {
+                $.each(data, function (idx, value) {
+                    $("#categories").append(`<option value="${value.Id}">${value.Name}</option>`)
+                })
+            })
+        })
+
+        $("#listEvent").on('change', function () {
+            eventId = this.value;
+            getAllEventParticipant();
+        })
+
+        function getAllEventParticipant() {
+            console.log(categoryId)
+            GetAllEventParticipant(eventId, categoryId)
+                .then(data => {
+                    drawAllEventParticipant(data);
+                });
+        }
+
+        //Start Pagination => 22/10/2021
+        function getAllEventParticipant() {
+            $.get('/rest/GetAllEventParticipant?eventId=' + eventId + '&eventCategory=' + categoryId + '&startIndex=' + page + '&pageSize=' + pageSize + '&contentStatus=' + status, function (data, status) {
+                var json = JSON.parse(data);
+                drawAllEventParticipant(json.Contents);
+                drawPaging(json.PageCount);
+            });
+        }
+        function movePage(i) {
+            page = i;
+            getAllEventParticipant();
+        }
+        function drawPaging(count) {
+            var countpage = 2;
+            var nextpad = 3;
+            var totalpage = count > pageSize ? count / pageSize : 1;
+            var limitpage = nextpad + page >= totalpage ? totalpage : page + nextpad;
+            var firstpage = page - countpage >= 0 ? page - countpage : 0;
+            @* console.log(totalpage, 'test total') *@
+
+            $("#paging").empty();
+            if (page <= 0) {
+                $("#paging").append(`
+                 <li class="page-item disabled ">
+                            <a class="page-link" href="#" tabindex="-1" onclick="movePage(${page - 1})">Previous</a>
+                 </li>`)
+            } else {
+                $("#paging").append(`<li class="page-item "><a class="page-link" href="#" tabindex="-1" onclick="movePage(${page - 1})">Previous</a></li>`)
+            }
+
+            for (var i = firstpage; i < limitpage; i++) {
+                if (i == page) {
+                    $("#paging").append(`
+                        <li class="page-item active" aria-current="page"><a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a></li> `)
+                } else {
+                    $("#paging").append(`<li class="page-item" aria-current="page"><a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a></li>`)
+                }
+            }
+
+            if (page >= totalpage - 1) {
+                    $("#paging").append(`<li class="page-item disabled"><a class="page-link"href="#" tabindex="-1">next</a></li>`)
+            } else {
+                $("#paging").append(`<li class="page-item"><a class="page-link"href="#" tabindex="-1" onclick="movePage(${page + 1})">next</a></li>`)
+            }
+        }
+        //End Pagination
+
+        function drawAllEventParticipant(response) {
+            $("#listEventParticipant").empty();
+            var content = '';
+            response.map(value => {
+                var status = '';
+                if (value.Content.Status == 1) {
+                    status = 'Approved';
+                } else if (value.Content.Status == 2) {
+                    status = 'Rejected';
+                } else {
+                    status = 'Waiting Approval';
+                }
+
+                content += `<tr><td>${value.Content.Title}</td>`;
+                content += `<td>${value.User.RealName}</td>`;
+                content += `<td>${value.User.UserId}</td>`;
+                content += `<td>${value.User.City}</td>`;
+                content += `<td>${status}</td>`;
+
+                if (value.Content.Status == 1) {
+                    //status = 'Approved';
+                    content += `<td align="center">                    
+                      <button class="btn-approve" onclick="cekUserIdEventId(${value.Content.Id},${value.User.UserId},${value.EventParticipant.EventId})"><i class="fas fa-edit fa-lg"></i></button>
+                      <button class="btn-reject" onclick="UpdateStatus(${value.Content.Id},2)">Reject</button>
+                      </td></tr>`;
+                } else if (value.Content.Status == 2) {
+                    //status = 'Rejected';
+                    content += `<td align="center">                    
+                     <button class="btn-approve" onclick="cekUserIdEventId(${value.Content.Id},${value.User.UserId},${value.EventParticipant.EventId})"><i class="fas fa-edit fa-lg"></i></button>
+                     <button class="btn-approve" onclick="UpdateStatus(${value.Content.Id},1)">Approve</button>            
+                     </td></tr>`;
+                } else {
+                   // status = 'Waiting Approval';
+                    if (value.Content.Status != 1 && value.Content.Status != 2)
+                    {
+                        content += `<td align="center">                    
+                        <button class="btn-approve" onclick="cekUserIdEventId(${value.Content.Id},${value.User.UserId},${value.EventParticipant.EventId})"><i class="fas fa-edit fa-lg"></i></button>
+                        <button class="btn-approve" onclick="UpdateStatus(${value.Content.Id},1)">Approve</button>
+                        <button class="btn-reject" onclick="UpdateStatus(${value.Content.Id},2)">Reject</button>
+                        </td></tr>`;
+                    }
+                }                
+
+            })
+            $("#listEventParticipant").append(content);
+        }
+
+        // <a href="/home/detail?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"> cccc</i></a> => 11/09/2021 => function drawAllEventParticipant(response) {
+        // <button class="btn-approve" onclick="UpdateStatus(${value.Content.Id},1)">Approve</button> => 11/09/2021 => function drawAllEventParticipant(response) {
+        // <button class="btn-reject" onclick="UpdateStatus(${value.Content.Id},2)">Reject</button> => 11/09/2021 => function drawAllEventParticipant(response) {
+        function cekUserIdEventId(idContent,userId,eventId) {
+            $.ajax({
+                async: true,
+                type: 'GET',
+                url: '/content/cekContentItems?userId=' + userId + '&eventId=' + eventId,
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                success: function (response) {
+                    if (response.Success) {
+                        var jumlah = response.Message;
+                        if (jumlah == 0)
+                        {
+                            alert("This participant haven't upload the content, please choose another participant");
+                        } else {
+                            window.location = "/home/detail?contentId=" + idContent;
+                        }
+                    }
+                },
+                error: function () {
+                    alert('there is problem.. please check program code again');
+                }
+            });
+        }
+
+        function search() {
+            var value = $("#search").val();
+            GetAllEventParticipantBySearchName(eventId, value, categoryId)
+                .then(data => {
+                    drawAllEventParticipant(data);
+                })
+        }
+
+        function drawEvent(response) {
+            var content = '';
+            response.map(value => {
+                content += `<option value="${value.Id}">${value.Name}</option>`;
+            })
+            $("#listEvent").append(content);
+        }
+
+        function UpdateStatus(contentDetailId, status) {
+            ApproveOrRejectContent(contentDetailId, status)
+                .then(data => {
+                    if (data == 'ok') {
+                        var message = '';
+                        if (status == 1) {
+                            message = 'Approved';
+                        } else if (status == 2) {
+                            message = 'Rejected'
+                        }
+                        alert(message);
+                        search();
+                    } else {
+                        alert(data);
+                    }
+                    console.log(data);
+                })
+        }
+
+        function ContentStatus(getStatus)
+        {
+            status = getStatus;
+            getAllEventParticipant();
+            //$.ajax({
+            //    async: true,
+            //    type: 'GET',
+            //    url: '/content/ContentStatus?eventId=' + eventId + '&eventCategory=' + categoryId + '&startIndex=' + page + '&pageSize=' + pageSize + '&contentStatus=' + getStatus,
+            //    success: function (response) {
+            //        if (response.Success) {
+            //            $.each(response.Message,
+            //                function (index,data) {
+            //                    var json = JSON.parse();
+            //                    drawAllEventParticipant(json.Contents);
+            //                    drawPaging(json.PageCount);
+            //                });
+            //        }
+            //    },
+            //    error: function () {
+            //        alert("There Is Problem with Content Status Function");
+            //    }
+            //});
+        }
+
+    </script>
+}

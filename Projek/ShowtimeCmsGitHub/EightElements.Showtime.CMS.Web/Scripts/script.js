@@ -1,0 +1,2 @@
+﻿fuction getData(){
+}

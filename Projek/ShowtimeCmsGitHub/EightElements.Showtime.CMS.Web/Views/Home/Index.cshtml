@@ -1,0 +1,32 @@
+﻿@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+<div class=" page-fBot2">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <!-- Area Chart -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">New Users</h6>
+                </div>
+                <div class="card-body">
+                    <div class="chart-bar">
+                        <canvas id="myBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Content/js/demo/chart-bar-demo.js"></script>
+    <script>
+    </script>
+}

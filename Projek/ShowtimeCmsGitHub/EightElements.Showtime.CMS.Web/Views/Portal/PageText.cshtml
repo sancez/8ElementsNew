@@ -1,0 +1,236 @@
+﻿@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+
+<div id="succesUpdateData">
+</div>
+     
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Page Text</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <select class="form-control" id="lang">
+                        <option value="">Select Language</option>
+                        <option value="en">English</option>
+                        <option value="id">Indonesia</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="text">Key</label>
+                    <input type="text" class="form-control" id="key" placeholder="Enter Key">
+                </div>
+                <div class="form-group">
+                    <label for="text">Text</label>
+                    <textarea type="text" rows="5" class="form-control" id="text" placeholder="Enter Text">
+                </textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" onclick="saveChanges();" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class=" page-fBot2">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold">Portal Page Text </h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <select class="form-control" id="listEvent">
+                        <option value="">Select Language</option>
+                        <option value="en">English</option>
+                        <option value="id">Indonesia</option>
+                    </select>
+                </div>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <button onclick="resetModal()" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                        Add New Text
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold"></h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <td scope="col">Key</td>
+                            <td scope="col">Text</td>
+                            <td scope="col">Language Code</td>
+                            <td scope="col">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="listContent">
+                    </tbody>
+                </table>
+            </div>
+
+            <nav aria-label="...">
+                <ul class="pagination" id="paging">
+                </ul>
+            </nav>
+
+        </div>
+    </div>
+    @*<p>
+            <a href="Javascript:void(0)" id="send" class="back-btn" style="display:inline-block;">Send Email</a>
+        </p>*@
+</div>
+
+@section scripts
+{
+    <script>
+        var lang = "";
+        var id = 0;
+        var listText = [];
+        var indexId = 0;
+        var page = 0;
+        var pageSize = 10;
+
+
+        $("#listEvent").on('change', function () {
+            lang = this.value;
+            //GetPageText();
+            getAllEventParticipant();
+
+        })
+
+        function GetPageText() {
+            GetAllPageText(lang).then(response =>
+                JSON.parse(response)
+            ).then(data => {
+                listText = data;
+                drawListContent(data);
+            });
+        }
+
+        //Start Pagination => 22/10/2021
+        function getAllEventParticipant() {
+            $.get('/rest/GetAllPageText?lang=' + lang + '&startIndex=' + page + '&pageSize=' + pageSize, function (data, status) {
+                var json = JSON.parse(data);
+                drawListContent(json.PageTexts);
+                listText = json.PageTexts;
+                console.log(json);
+                drawPaging(json.PageCount);
+            });
+        }
+        function movePage(i) {
+            page = i;
+            console.log(i)
+            getAllEventParticipant();
+        }
+
+        function drawPaging(count) {
+            var countpage = 2;
+            var nextpad = 3;
+            var totalpage = count > pageSize ? count / pageSize : 1;
+            var limitpage = nextpad + page >= totalpage ? totalpage : page + nextpad;
+            var firstpage = page - countpage >= 0 ? page - countpage : 0;
+            @*console.log(totalpage,'test total')*@
+
+            $("#paging").empty();
+            if (page <= 0) {
+                $("#paging").append(`<li class="page-item disabled ">
+                            <a class="page-link" href="#" tabindex="-1" onclick="movePage(${page - 1})">Previous</a> </li>`)
+            } else {
+
+                $("#paging").append(`<li class="page-item ">
+                            <a class="page-link" href="#" tabindex="-1" onclick="movePage(${page - 1})">Previous</a> </li>`)
+            }
+
+            for (var i = firstpage; i < limitpage; i++) {
+                if (i == page) {
+                    $("#paging").append(`<li class="page-item active" aria-current="page">
+                            <a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a> </li>`)
+                } else {
+                    $("#paging").append(`<li class="page-item" aria-current="page">
+                            <a class="page-link" onclick="movePage(${i})" href="#">${i + 1}</a></li>`)
+                }
+            }
+
+            if (page >= totalpage -1) {
+                $("#paging").append(`<li class="page-item disabled">
+                            <a class="page-link"href="#" tabindex="-1" ">next</a></li>`)
+            } else {
+                $("#paging").append(`<li class="page-item">
+                            <a class="page-link"href="#" tabindex="-1" onclick="movePage(${page + 1})">next</a> </li>`)
+            }
+        }
+        //End Pagination
+
+        function updateModal(index) {
+            indexId = index;
+            var value = listText[index];
+            id = value.Id;
+            $("#text").text(value.Text);
+            $("#key").val(value.Key);
+            $("#lang").val(value.LanguageCode);
+        }
+        function resetModal() {
+            id = 0;
+            indexId = 0;
+
+            $("#key").val('');
+            $("#text").val('');
+            $("#text").empty('');
+            $("#lang").val('');
+            var text = document.createTextNode(value.Text);
+        }
+
+        function saveChanges() {
+            var text = $("#text").val();
+            //if (indexId > 0){
+            //  text = [indexId].Text;
+            //}
+            var key = $("#key").val();
+            var lang = $("#lang").val();
+            AddOrUpdatePageText(id, key, text, lang).then(response => {
+                $("#succesUpdateData").empty();
+                if (response == 'ok') {
+                    @*alert('Success');*@
+                    $("#succesUpdateData").append(`<div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <i class="fas fa-check"> Success Update ... </i>
+                    </div>`)
+                }
+                @*GetPageText();*@
+                getAllEventParticipant();                
+               }
+            );
+            $('#exampleModal').modal('toggle');
+        }
+        function drawListContent(response) {
+            $("#listContent").empty();
+            var content = '';
+            response.map((value, index) => {
+                content += `<tr><td>${value.Key}</td>`;
+                content += `<td>${value.Text}</td>`;
+                content += `<td>${value.LanguageCode}</td>`;
+                content += `<td><a onclick='updateModal(${index})' href="javascript:void(0)" data-toggle="modal" data-target="#exampleModal">Edit</a></td></tr>`;
+            })
+            $("#listContent").append(content);
+        }
+    </script>
+}

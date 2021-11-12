@@ -1,0 +1,111 @@
+﻿@{
+}
+
+@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+<div class=" page-fBot2">
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold">Portal </h6>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <select class="form-control" id="listEvent">
+                        <option value="0">Select Event</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold">List Emails</h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <td scope="col">Part</td>
+                            <td scope="col">Contents Uploaded</td>
+                            <td scope="col">Last Update</td>
+                            <td scope="col">Action</td>
+                        </tr>
+                    </thead>
+                    <tbody id="listContent">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    @*<p>
+            <a href="Javascript:void(0)" id="send" class="back-btn" style="display:inline-block;">Send Email</a>
+        </p>*@
+</div>
+
+@section scripts
+{
+    <script>
+        var eventId = 0;
+        $(document).ready(function () {
+            GetAllEvent().then(response =>
+                JSON.parse(response)
+            ).then(data => {
+                drawEvent(data);
+            });
+        })
+
+        $("#listEvent").on('change', function () {
+            eventId = this.value;
+            GetAllEventDetail();
+        })
+
+        function drawEvent(response) {
+            var content = '';
+            response.map(value => {
+                content += `<option value="${value.Id}">${value.Name}</option>`;
+            })
+            $("#listEvent").append(content);
+        }
+        function GetAllEventDetail() {
+            GetAllEventDetailByEventId(eventId)
+                .then(data => {
+                    drawListContent(data);
+                })
+        }
+        function drawListContent(response) {
+            $("#listContent").empty();
+            var content = ''
+            response.map(value => {
+                var url = "";
+                if (value.Key.includes('Join')) {
+                    url = '/portal/join?eventId=' + eventId;
+                }
+                if (value.Key.includes('Vote')) {
+                    url = '/portal/Vote?eventId=' + eventId;
+                }
+                if (value.Key.includes('Welcome')) {
+                    url = '/portal/Banner?eventId=' + eventId;
+                }
+                if (value.Key.includes('Category')) {
+                    url = '/portal/Category?eventId=' + eventId;
+                }
+                if (value.Key.includes('Carousel')) {
+                    url = '/portal/Carousel?eventId=' + eventId;
+                }
+                content += `<tr><td>${value.Key}</td>`;
+                content += `<td>${value.Count}</td>`;
+                content += `<td>${value.UpdateDate}</td>`;
+                content += `<td><a href="${url}">Edit</a>, <a href="">Delete</a></td></tr>`;
+            })
+            $("#listContent").append(content);
+        }
+    </script>
+}

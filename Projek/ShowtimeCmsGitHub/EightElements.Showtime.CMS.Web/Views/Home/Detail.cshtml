@@ -1,0 +1,203 @@
+﻿@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+@using System.Web.Configuration
+@using EightElements.Showtime.CMS.Data
+@{
+    ViewBag.Title = "About";
+    List<ContentItem> list = ViewData["listContent"] as List<ContentItem>;
+    List<EventCategory> listCategories = ViewData["listCategories"] as List<EventCategory>;
+    var ep = ViewData["epId"] as EventParticipant;
+
+    string cdn = WebConfigurationManager.AppSettings["CDN_Uri"];
+    string cdnVideo = WebConfigurationManager.AppSettings["CDN_Video"];
+    string cdnContent = WebConfigurationManager.AppSettings["CDN_Content"];
+    int index = 0;
+    int idx = 100;
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+
+<select id="categories">
+
+    @{
+        foreach (var data in listCategories)
+        {
+            if (data.Id == ep.EventCategoryId)
+            {
+                <option value="@data.Id" selected>@data.Name</option>
+            }
+            else
+            {
+                <option value="@data.Id">@data.Name</option>
+            }
+
+        }
+    }
+</select>
+<button onclick="updateCategori()" id="update-category">Update Category</button>
+
+@{
+    foreach (var contentDetail in list.Where(value => value.ContentTypeId < 3))
+    {
+        idx++;
+        <div class="row card-foto">
+            <div class="col-xs-12 col-sm-3">
+                @if (string.IsNullOrEmpty(contentDetail.ContentPath))
+                {
+                    <p>Image empty</p>
+                }
+                else
+                {
+                    if (contentDetail.ContentTypeId == 2)
+                    {
+                        <p>Banner Image</p>
+                    }
+                    else
+                    {
+                        <p>Thumbnail Image</p>
+                    }
+                    <div id="wrap-@idx">
+                        <img id="image-@idx" src="@cdn/@contentDetail.ContentPath" onload="getSize(@idx)" class="img-responsive" alt="" />
+                    </div>
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                @if (contentDetail.Status > 0)
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,0)">Redo</button>
+                }
+                else
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">approve</button>
+                    <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">reject</button>
+                }
+                @* <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">Approve</button> *@
+                @* <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">Reject</button> *@
+            </div>
+        </div>
+    }
+
+    foreach (var contentDetail in list.Where(value => value.ContentTypeId == 5))
+    {
+        <div class="row card-foto">
+            <div class="col-xs-12 col-sm-3">
+                @if (string.IsNullOrEmpty(contentDetail.ContentPath))
+                {
+                    <p>Video empty</p>
+                }
+                else
+                {
+                    <video class="video-thumb" controls>
+                        <source src="@cdnVideo/@contentDetail.ContentPath" type="video/mp4">
+                        Your browser does not support HTML video.
+                    </video>
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                @if (contentDetail.Status > 0)
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,0)">Redo</button>
+                }
+                else
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">approve</button>
+                    <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">reject</button>
+                }
+                @* <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">Approve</button> *@
+                @* <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">Reject</button> *@
+            </div>
+        </div>
+    }
+    <p>Complementary Image</p>
+    foreach (var contentDetail in list.Where(value => value.ContentTypeId > 2))
+    {
+        index++;
+        <div class="row card-foto">
+            <div class="col-xs-12 col-sm-3">
+                @if (string.IsNullOrEmpty(contentDetail.ContentPath))
+                {
+                    <p>Image empty</p>
+                }
+                else
+                {
+                    <div id="wrap-@index">
+                        <img id="image-@index" src="@cdnContent/@contentDetail.ContentPath" onload="getSize(@index)" class="img-responsive" alt="" />
+                    </div>
+
+                }
+
+            </div>
+            <div class="col-xs-12 col-sm-2">
+                @if (contentDetail.Status > 0)
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,0)">Redo</button>
+                }
+                else
+                {
+                    <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">approve</button>
+                    <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">reject</button>
+                }
+                @* <button class="btn-approve" onclick="UpdateStatus(@contentDetail.Id,1)">Approve</button> *@
+                @* <button class="btn-reject" onclick="UpdateStatus(@contentDetail.Id,2)">Reject</button> *@
+            </div>
+        </div>
+    }
+}
+
+@section scripts
+{
+    <script>
+    $(document).ready(function() {
+      var data = @index;
+        for (var i = 0; i < data; i++){
+            try {
+
+          }catch (e) {
+              console.log(e,'sini');
+          }
+      }
+    })
+
+        function updateCategori() {
+            var categories = $("#categories").val();
+            $.get("/rest/UpdateEventParticipant?id=@ep.Id&categoryId=" + categories, function (data) {
+                alert("succes")
+            })
+        }
+
+        function getSize(i) {
+            var img = $("#image-" + i)
+            $("<img>").attr("src", $(img).attr("src")).on('load', function () {
+                var realWidth = this.width;
+                var realHeight = this.height;
+                //alert("Original width=" + realWidth + ", " + "Original height=" + realHeight  + " i " + i);
+                $("#wrap-" + i).append(`<p>${realWidth} X ${realHeight}</p>`)
+            });
+        }
+        function UpdateStatus(contentDetailId,status) {
+          ApproveOrRejectContentDetail(contentDetailId,status)
+          .then(data => {
+              if (data == 'ok'){
+                  var message = '';
+                  if (status == 1){
+                      message = 'Approved';
+                  }else if (status == 2){
+                      message = 'Rejected'
+                  }
+                  alert(message);
+                  window.location.reload();
+              }
+              console.log(data);
+          })
+        }
+    </script>
+}
