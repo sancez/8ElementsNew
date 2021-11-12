@@ -114,8 +114,11 @@
             success: function (response) {
                 if (response.Success) {
                     $('#tableBody').empty();
+                     //var data = response.Data;
                     $.each(response.data,
+                         
                         function (index, value) {
+
                             userVar += '<tr><td>' + value.password +
                                 '</td><td>' + value.username + '</td><td>' +
                                 value.role +
