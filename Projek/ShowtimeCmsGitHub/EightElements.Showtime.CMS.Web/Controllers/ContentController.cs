@@ -145,6 +145,34 @@ namespace EightElements.Showtime.CMS.Web.Controllers
             var Message = Repositories.ContentStatus(eventId,eventCategory,startIndex,pageSize,ContentStatus);
             return Json(new { Success = true,Message = Message},JsonRequestBehavior.AllowGet);
         }*/
+        //......get id for view
+        public ActionResult GetContentDetail(int contentId)
+        {
+            try
+            {
+                var data = Repositories.GetContentDetail(contentId);
+                return Json(new { Success = true, Message = "Success", Data = data }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception e)
+            {
+                return Json(new { Success = false, Message = $"Failed\n{e.Message}\n{e.StackTrace}" }, JsonRequestBehavior.AllowGet);
+            }
+        }
 
+        [HttpPost]
+        public ActionResult UpdateContentDetail(UpdateContentDTO dto)
+        {
+            try
+            {
+                var userId = (int) (Session["userID"]==null ? 24 : Session["userID"]);
+                var data = Repositories.UpdateContentDetail(dto, userId);
+                return Json(new { Success = true, Message = "Success", Data = data });
+            }
+            catch(Exception e)
+            {
+                return Json(new { Success = false, Message = $"Failed\n{e.Message}\n{e.StackTrace}"});
+            }
+            
+        }
     }
 }

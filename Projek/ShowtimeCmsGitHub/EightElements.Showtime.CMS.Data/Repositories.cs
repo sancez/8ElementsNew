@@ -32,28 +32,53 @@ namespace EightElements.Showtime.CMS.Data
                 return query.OrderByDescending(ep => ep.EventParticipant.Id).Skip(startIndex * pageSize).Take(pageSize).ToList();//add Skip(startIndex * pageSize).Take(pageSize). 
             }
         }    
-        //..................
-        public static List<ShowcaseModel> GetAllShowcase(int startIndex = 0, int pageSize = 10, int ContentStatus = -191)// add int startIndex = 0, int pageSize = 10
+        //..................v1
+        public static List<ShowcaseModel> GetAllShowcase(int startIndex = 0, int pageSize = 10, int ContentStatus = -191, string keySearch = "")// add int startIndex = 0, int pageSize = 10
         {
             using (var dc = new ShowtimeEntities())
             {
-                var epId = dc.EventParticipants.Select(x => x.ContentId).ToArray();
-                var query = from ep in dc.Contents
-                            join pc in dc.UserDetails on ep.UserId equals pc.UserId
-                            where !epId.Contains(ep.Id)
-                            select new ShowcaseModel { Content = ep, User = pc };
-                if (ContentStatus > 0)
+                if (keySearch == "")
                 {
-                    query = query.Where(x => x.Content.Status == ContentStatus);
+                    var epId = dc.EventParticipants.Select(x => x.ContentId).ToArray();
+                    var query = from ep in dc.Contents
+                                join pc in dc.UserDetails on ep.UserId equals pc.UserId
+                                where !epId.Contains(ep.Id)
+                                select new ShowcaseModel { Content = ep, User = pc };
+                    if (ContentStatus > 0)
+                    {
+                        query = query.Where(x => x.Content.Status == ContentStatus);
+                    }
+                    if (ContentStatus == 0)
+                    {
+                        query = query.Where(y => y.Content.Status == null || y.Content.Status == 0);
+                    }
+
+                    query = query.OrderByDescending(ep => ep.Content.Id).Skip(startIndex * pageSize).Take(pageSize);//add .OrderByDescending(pt => pt.Id).Skip(startIndex * pageSize).Take(pageSize);
+
+                    return query.ToList();
                 }
-                if (ContentStatus == 0)
-                {
-                    query = query.Where(y => y.Content.Status == null || y.Content.Status == 0);
-                }
+                else 
+                { 
+
+                    var epId = dc.EventParticipants.Select(x => x.ContentId).ToArray();
+                    var query = from ep in dc.Contents
+                                join pc in dc.UserDetails on ep.UserId equals pc.UserId
+                                where ep.Title.Contains(keySearch) || pc.RealName.Contains(keySearch)  /*!epId.Contains(ep.Id) */
+                                select new ShowcaseModel { Content = ep, User = pc };
+                    if (ContentStatus > 0)
+                    {
+                        query = query.Where(x => x.Content.Status == ContentStatus && x.Content.Title.Contains(keySearch));
+                    }
+                    if (ContentStatus == 0)
+                    {
+                        query = query.Where(y => y.Content.Status == null || y.Content.Status == 0 && y.Content.Title.Contains(keySearch));
+                    }
                 
-                query = query.OrderByDescending(ep => ep.Content.Id).Skip(startIndex * pageSize).Take(pageSize);//add .OrderByDescending(pt => pt.Id).Skip(startIndex * pageSize).Take(pageSize);
+                    query = query.OrderByDescending(ep => ep.Content.Id).Skip(startIndex * pageSize).Take(pageSize);//add .OrderByDescending(pt => pt.Id).Skip(startIndex * pageSize).Take(pageSize);
+                        return query.ToList();
+                }
+
                
-                return query.ToList();
             }
         }
 
@@ -760,7 +785,7 @@ namespace EightElements.Showtime.CMS.Data
                 return cekContentItem;
             }
         }
-    
+
         /*public static List<ContentEventParticipant> ContentStatus(int eventId, int eventCategoryId = 0, int startIndex = 0, int pageSize = 10, int ContentStatus = 0)
         {
             using (var dc = new ShowtimeEntities())
@@ -786,8 +811,68 @@ namespace EightElements.Showtime.CMS.Data
             }
         }*/
 
-        
-        
+        public static UpdateContentDTO GetContentDetail(int contentId)
+        {
+            using (var dc = new ShowtimeEntities())
+            {
+                var content = dc.Contents.Where(a => a.Id == contentId).FirstOrDefault();
+                var items = dc.ContentItems.Where(a => a.ContentId == contentId).ToList();
+                var tags = dc.ContentTags.Where(a => a.ContentId == contentId).Select(a => a.Tag).ToList();
+                var user = dc.UserDetails.Where(a => a.UserId == content.UserId).FirstOrDefault();
 
+                var data = new UpdateContentDTO()
+                {
+                    Id = contentId,
+                    Title = content.Title,
+                    Username = user.DisplayName,
+                    UserId = content.UserId,
+                    CategoryId = content.ContentCategoryId,
+                    ClassificationId = content.ContentClassificationId,
+                    AgeRatingId = content.ContentAgeRatingId,
+                    IsCP = content.IsCP,
+                    Tags = tags,
+                    ContentItems = items,
+                    LastCreatedDate = content.LastUpdatedDate,
+                    LastCreatedBy = content.LastUpdatedBy
+                };
+
+                return data;
+            }
+        }
+
+        public static UpdateContentDTO UpdateContentDetail(UpdateContentDTO dto, int adminId)
+        {
+            using (var dc = new ShowtimeEntities())
+            {
+                var content = dc.Contents.Where(a => a.Id == dto.Id).FirstOrDefault();
+                var items = dc.ContentItems.Where(a => a.ContentId == dto.Id).ToList();
+                var tags = dc.ContentTags.Where(a => a.ContentId == dto.Id).ToList();
+
+                content.ContentCategoryId = dto.CategoryId;
+                content.ContentClassificationId = dto.ClassificationId;
+                content.ContentAgeRatingId = dto.AgeRatingId;
+                content.LastUpdatedBy = adminId;
+                content.LastUpdatedDate = DateTime.Now;
+
+                foreach(var i in dto.ContentItems)
+                {
+                    var old = items.Where(a => a.Id == i.Id).FirstOrDefault();
+                    old.Status = i.Status;
+                }
+
+                dc.ContentTags.RemoveRange(tags);
+
+                var newTags = new List<ContentTag>();
+                foreach(var t in dto.Tags)
+                {
+                    newTags.Add(new ContentTag() { ContentId = dto.Id, Tag = t });
+                }
+                dc.ContentTags.AddRange(newTags);
+
+                dc.SaveChanges();
+
+                return dto;
+            }
+        }
     }
 }

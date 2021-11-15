@@ -1,0 +1,118 @@
+﻿@{
+
+    if (Session["userID"] == null)
+    {
+        Response.Redirect("~/Login/index");
+    }
+}
+
+@using System.Web.Configuration
+@using EightElements.Showtime.CMS.Data
+@{
+    ViewBag.Title = "Showcase Detail";
+    //List<ContentItem> list = ViewData["listContent"] as List<ContentItem>;
+    string cdn = WebConfigurationManager.AppSettings["CDN_Uri"];
+    string cdnContent = WebConfigurationManager.AppSettings["CDN_Content"];
+    string cdnVideo = WebConfigurationManager.AppSettings["CDN_Video"];
+}
+<h2>@ViewBag.Title.</h2>
+<h3></h3>
+
+
+
+<div class="row mb-3" id="contentBody">
+   
+</div>
+<!--Row-->
+
+
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            //get contentId=1170
+            GetContentDetail()
+        });
+        //$.urlParam('param1');
+        function GetContentDetail() {
+            var contentId = $.urlParam('contentId');
+            var content = "";
+           // $.urlParam('contentId');
+            // show image and video, button approve reject => task For monday TASSSKKKKKK
+            $.ajax({
+                url: '/Content/GetContentDetail?contentId=' + contentId,
+                success: function (response) {
+                    if (response.Success) {
+                        var data = response.Data;
+                        var items = data.ContentItems;
+                        @*var contentitem = data.contentitem;
+                        contentitem[0].filename; => not looping *@
+                        var contentDiv = "";
+                        for (var i = 0; i < items.length; i++) {
+                            var item = items[i];
+                            //item.filename
+                            //add vidio <source src="" type="video/mp4">
+                            var html = `<div class="col-xl-5 col-md-5 mb-4" >
+                                        <a href="#" style="text-decoration: none" onclick="getLocation()" data-toggle="modal" data-target="#Masuk">
+                                            <div class="card h-100">
+                                                <div class="card-body">
+                                                    <div class="row align-items-center">
+                                                        <div class="col mr-2">
+                                                           @* <div class="text-xs font-weight-bold text-uppercase mb-1">Absensi</div>*@
+                                                           @* <div class="h5 mb-0 font-weight-bold text-gray-800">Masuk</div>*@
+                                                            <div class="mt-2 mb-0 text-muted text-xs">
+                                                               @* <span class="text-primary mr-2"><i class="fa fa-arrow-up"></i> Silahkan Klik Diatas &nbsp </span>*@
+                                                                <span class="text-success mr-2"><i class="fa fa-arrow-down"></i>
+                                                                     Show Video In Path =>
+                                                                     `+ item.ContentPath + `
+                                                                </span>`;
+                            if (item.ContentTypeId == 5) {
+                                var html1 = `<video width="400" controls>
+                                                      <source type="video/mp4" src="@cdnVideo/`+ item.ContentPath +`">
+                                                      Your browser does not support HTML video.
+                                             </video>`
+                            } else {
+                                var html1 = `<div">
+                                                      <img src="@cdn/`+ item.ContentPath +`">
+                                                      
+                                             </div>`
+                            }
+
+                            var html2 =    ` </div></div>
+                                                        <div class="col-auto">
+                                                        <button type="submit" class="btn btn-primary mt-2">Approve</button>
+                                                        <button type="submit" class="btn btn-danger mt-2">Reject</button>
+                                                        </div>
+                                                        @*<div class="col-auto">
+                                                            <i class="fas fa-calendar fa-2x text-primary"></i>
+                                                        </div>*@
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a></div>`;
+
+                            contentDiv += html;
+                            contentDiv += html1;
+                            contentDiv += html2;
+                        }
+
+                        $("#contentBody").html(contentDiv);
+
+                    }
+                },
+                error: function () {
+                    alert("There Some Problem With Your Code Program");
+                }
+            });
+        }
+
+        //From this site https:// stackoverflow.com/questions/39006574/check-if-url-param-exist-using-jquery
+        //for define faram var contentId = $.urlParam('contentId');
+
+        $.urlParam = function (name) {
+            var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);//Array Form
+            return results!=null && results.length>1 ? results[1] : 0;//Get Index 2 using > 1
+        }
+    </script>
+}
