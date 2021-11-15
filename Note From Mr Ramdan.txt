@@ -1,0 +1,23 @@
+1.go to Terminal->New Terminal and then type in seccond step program code
+2.D: -> cd .\projects\ -> dotnet new webapi -n Catalog
+3.go to Open Folder -> open folder Catalog -> click select folder
+4.after this step you will see notify in bellow 'Required assets to build and debug are 
+  missing from 'Catalog'. add them ?' if you see this pop up just click yes
+5.see catalog,program,and start up file for information
+6.see WeatherForecast.cs in properties and controller for knowledge app settings.json too
+7.Click Icon Play -> .Net Core Launch(web) and you will see error page.
+8.Click icon + in terminal and type program code bellow
+9.dotnet dev-certs https --trust and you will see Security Warning just click yes.. to be continued in 0:11:10 after pop up
+10.you will see Security Warning just click yes.
+11.Run Project end you will see error 'This localhost page cant be found'
+12.go to url after run project see http://localhost/swagger/index.html you will see page swager
+13.Click 'get/weatherForecast' in web page -> try out -> execute	
+14.go to launch.json file->remove //enable launching a web browser when asp.net core starts etc
+   until pattern....}, and the text will be relation like false,"env" 	
+15.go to tasks.json .. add program code bellow after "problemMatcher": "$msCompile",
+   "group" : {
+		"kind": "build",
+		"isDefault":true
+	}
+   
+16.selected the program code ""${workspacefolder}/Catalog.csproj"" go to terminal->run build task->ctrl+shift+B

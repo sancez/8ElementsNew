@@ -130,6 +130,7 @@ D:\8 Elements New\Projek\Penggajian\bin\EntityFramework.dll
 D:\8 Elements New\Projek\Penggajian\bin\EntityFramework.SqlServer.dll
 D:\8 Elements New\Projek\Penggajian\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\8 Elements New\Projek\Penggajian\bin\Microsoft.Web.Infrastructure.dll
+D:\8 Elements New\Projek\Penggajian\bin\Newtonsoft.Json.dll
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Helpers.dll
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Mvc.dll
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Razor.dll
@@ -138,6 +139,7 @@ D:\8 Elements New\Projek\Penggajian\bin\System.Web.Webpages.dll
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Webpages.Razor.dll
 D:\8 Elements New\Projek\Penggajian\bin\EntityFramework.xml
 D:\8 Elements New\Projek\Penggajian\bin\EntityFramework.SqlServer.xml
+D:\8 Elements New\Projek\Penggajian\bin\Newtonsoft.Json.xml
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Razor.xml
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Webpages.xml
 D:\8 Elements New\Projek\Penggajian\bin\System.Web.Webpages.Deployment.xml
@@ -150,5 +152,3 @@ D:\8 Elements New\Projek\Penggajian\obj\Debug\Penggajian.csproj.CoreCompileInput
 D:\8 Elements New\Projek\Penggajian\obj\Debug\Penggajian.csproj.CopyComplete
 D:\8 Elements New\Projek\Penggajian\obj\Debug\Penggajian.dll
 D:\8 Elements New\Projek\Penggajian\obj\Debug\Penggajian.pdb
-D:\8 Elements New\Projek\Penggajian\bin\Newtonsoft.Json.dll
-D:\8 Elements New\Projek\Penggajian\bin\Newtonsoft.Json.xml

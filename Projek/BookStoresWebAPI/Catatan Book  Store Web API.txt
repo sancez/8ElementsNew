@@ -1,0 +1,19 @@
+This note has created because we need internet for this action,maybe you in bad connection or samething like that
+1.install 'EntityFramework toll(Microsoft.EntityFrameworkCore.Tools)' in nuget BookStoreWebAPI version 300 for connect to database
+2.Check in Package
+3.You must Active Manage Console go => Tools->Nuget Package Manager->Package Manager Console
+4.Type program code bellow
+	Scaffold-DbContext "Server =.\SQLExpress;Database=BookStoresDB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+  After you type program code you will see in controller object table in database,if you want see connection for manage connection
+  if you get troblem after you type your program code,Go to Server Explorer in left side aplication->right klik and choice properties
+  you will see in connection string 'Data Source=.\sqlexpress ..etc' but enought with all code program in first your type.
+5.you can check the data table of database,folder Model will be created automatically in right side application bellow controller
+  and automatically open file BookStoresDBContext.cs
+6.in BookStoresDbContext.cs go to in footer try to search 'warning to protect potentially sensitive information.. etc' 
+  make this sentence being comment using //
+7.after this action you can continue the video .. i hope not gonna troble with your program
+
+
+ytb
+https://www.youtube.com/watch?v=CLVJVA9cTuU
+
