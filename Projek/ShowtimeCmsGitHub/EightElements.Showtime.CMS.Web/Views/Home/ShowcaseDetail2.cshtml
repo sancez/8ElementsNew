@@ -15,18 +15,73 @@
     string cdnContent = WebConfigurationManager.AppSettings["CDN_Content"];
     string cdnVideo = WebConfigurationManager.AppSettings["CDN_Video"];
 }
+
+
 <h2>@ViewBag.Title.</h2>
 <h3></h3>
 
 
 
 <div class="row mb-3" id="contentBody">
-   
+</div>
+
+<div class="row">
+    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#exampleModal">
+        <input type="text" class="form-control" />
+    </div>
+    <div class="col-xl-3 col-md-5 mb-4">
+        <input type="text" class="form-control" />
+    </div>
+    <div class="col-xl-3 col-md-5 mb-4">
+        <input type="text" class="form-control" />
+    </div>
 </div>
 <!--Row-->
 
+<button class="btn btn-primary btn-sm mb-5">Save</button>
+<button class="btn btn-primary btn-sm mb-5">Cancel</button>
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal image -->
+<div id="myModal" class="modalImage">
+    <span class="close cursor" onclick="closeModal()">&times;</span>
+    <div class="modal-content">
+
+        <div class="mySlides">
+            <div class="numbertext">1 / 4</div>
+            <img id="lrg_img" src="img_nature_wide.jpg" style="width:100%">
+        </div>
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+        <div class="caption-container">
+            <p id="caption"></p>
+        </div>
+    </div>
+</div>
 @section scripts
 {
     <script>
@@ -51,10 +106,11 @@
                         var contentDiv = "";
                         for (var i = 0; i < items.length; i++) {
                             var item = items[i];
+                            $("#contentBody").empty();
                             //item.filename
                             //add vidio <source src="" type="video/mp4">
-                            var html = `<div class="col-xl-5 col-md-5 mb-4" >
-                                        <a href="#" style="text-decoration: none" onclick="getLocation()" data-toggle="modal" data-target="#Masuk">
+                            var html = `<div class="col-md-4 mb-4" style="flex: 50%;">
+                                        @*<a href="#" style="text-decoration: none" onclick="getLocation()" data-toggle="modal" data-target="#Masuk">*@
                                             <div class="card h-100">
                                                 <div class="card-body">
                                                     <div class="row align-items-center">
@@ -63,26 +119,48 @@
                                                            @* <div class="h5 mb-0 font-weight-bold text-gray-800">Masuk</div>*@
                                                             <div class="mt-2 mb-0 text-muted text-xs">
                                                                @* <span class="text-primary mr-2"><i class="fa fa-arrow-up"></i> Silahkan Klik Diatas &nbsp </span>*@
-                                                                <span class="text-success mr-2"><i class="fa fa-arrow-down"></i>
+
+
+
+                                                                @*<span class="text-success mr-2"><i class="fa fa-arrow-down"></i>
                                                                      Show Video In Path =>
-                                                                     `+ item.ContentPath + `
-                                                                </span>`;
+
+
+                                                                     `+ item.ContentPath + `Type = `+item.ContentTypeId+`
+                                                                </span>*@`;
                             if (item.ContentTypeId == 5) {
-                                var html1 = `<video width="400" controls>
-                                                      <source type="video/mp4" src="@cdnVideo/`+ item.ContentPath +`">
+                                var html1 = `
+                                                <video width="100%"controls>
+                                                      <source type="video/mp4" src="@cdnVideo/`+ item.ContentPath +`" style="width:100%" height="100%">
                                                       Your browser does not support HTML video.
                                              </video>`
-                            } else {
-                                var html1 = `<div">
-                                                      <img src="@cdn/`+ item.ContentPath +`">
-                                                      
-                                             </div>`
                             }
 
-                            var html2 =    ` </div></div>
+                            else {
+                                if (item.ContentTypeId == 1 || item.ContentTypeId == 2) {
+                                    var url = `@cdn/${item.ContentPath}`;
+                                    var html1 = `<div class="column">
+                                                                <img src="${url}" style="width:100%" onclick="openModal('${url}')" class="hover-shadow cursor">
+                                                 </div>
+                                                `
+                                }
+                                else if (item.ContentTypeId == 3) {
+                                    var url = `@cdnContent/${item.ContentPath}`;
+                                    var html1 = `
+                                                 <div class="column">
+                                                        <img src="${url}" style="width:100%" onclick="openModal('${url}')" class="hover-shadow cursor">
+                                                 </div>
+                                               `
+                                }
+
+
+                            }
+
+                            var html2 = ` </div></div><br><br>
                                                         <div class="col-auto">
-                                                        <button type="submit" class="btn btn-primary mt-2">Approve</button>
-                                                        <button type="submit" class="btn btn-danger mt-2">Reject</button>
+                                                        <input id="item_${item.Id}" type="hidden" value="">
+                                                        <button id="btn-app-${item.Id}" type="submit" class="btn btn-primary mt-2 btn-sm" onclick="itemApprove(${item.Id},1)" >Approve</button><br>
+                                                        <button id="btn-rjc-${item.Id}" type="submit" class="btn btn-danger mt-2 btn-sm" onclick="itemApprove(${item.Id},2)" >Reject</button>
                                                         </div>
                                                         @*<div class="col-auto">
                                                             <i class="fas fa-calendar fa-2x text-primary"></i>
@@ -90,11 +168,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </a></div>`;
+                                        </a>
+                                            </div>`;
 
-                            contentDiv += html;
-                            contentDiv += html1;
-                            contentDiv += html2;
+                                contentDiv += html;
+                                contentDiv += html1;
+                                contentDiv += html2;
+
+
                         }
 
                         $("#contentBody").html(contentDiv);
@@ -114,5 +195,51 @@
             var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);//Array Form
             return results!=null && results.length>1 ? results[1] : 0;//Get Index 2 using > 1
         }
+
+        function itemApprove(itemId, status) {
+            $(`#item_${itemId}`).val(status);
+            $(`#btn-app-${itemId}`).prop('disabled', status == 1);
+            $(`#btn-rjc-${itemId}`).prop('disabled', status == 2);
+            
+        }
+
+        function openModal(url) {
+            $("#lrg_img").attr("src", url);
+            document.getElementById("myModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("myModal").style.display = "none";
+        }
+
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("demo");
+            var captionText = document.getElementById("caption");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "block";
+            dots[slideIndex - 1].className += " active";
+            captionText.innerHTML = dots[slideIndex - 1].alt;
+        }
+
     </script>
 }
