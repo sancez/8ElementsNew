@@ -1,0 +1,27 @@
+$("input[name='q']").val();
+'tesasd'
+$("#q123").val();
+'tesasd'
+
+
+var s = "";
+for(var i=0;i<4;i++){
+	s += `<input type='text' id='name_${i}' />`;
+}
+$("#a").html(s);
+
+
+ var html = ` <input type="radio" name="themes" id="themes_${data.Id}" value="${data.Id}" data-nameThemes="${data.Name}" ><label for="themes_${data.Id}"> ${data.Name}</label>`;
+
+
+function saveThemes()
+        {            
+            //get value id radio button checked => $(`#btn-rjc-${itemId}`).prop('disabled', status == 2);
+            var checkedThemes = $('input[name="themes"]:checked');
+            var id = checkedThemes.val();
+            
+            //get name id radio button
+            var name = checkedThemes.attr("nameThemes");
+        }
+
+
