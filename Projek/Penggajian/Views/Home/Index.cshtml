@@ -98,7 +98,8 @@
 <br />
 
 <a href="@Url.Action("Logout", "Login")">Logout</a>
-<script type="text/javascript" language="javascript"> 
+<script type="text/javascript" language="javascript">
+
     $(document).ready(function () {
         GetAllUsers();
         GetAllUserPagination()
@@ -116,7 +117,7 @@
                     $('#tableBody').empty();
                      //var data = response.Data;
                     $.each(response.data,
-                         
+
                         function (index, value) {
 
                             userVar += '<tr><td>' + value.password +
@@ -170,7 +171,7 @@
                 alert("there is problem to user => this is alert function");
             }
         })
-    }    
+    }
     function searchFunction() {
         var key = document.getElementById("keySearch").value;
         var userVar = "";
@@ -218,15 +219,15 @@
             contentType: 'application/json;charset=utf-8',
             success: function (data) {
                 if (data.Success) {
-                    alert(data.Message);                    
+                    alert(data.Message);
                     GetAllUsers();
                     ResetAllUser();
                 } else {
-                    $.each(data.errorList, function (index, value) {
+                    @*$.each(data.errorList, function (index, value) {
                         errorMessage += value + '<br>';
                     });
                     $('#ErrorMessage').empty();
-                    $('#ErrorMessage').append(errorMessage);
+                    $('#ErrorMessage').append(errorMessage);     you can using this program code too*@
                 }
             },
             error: function () {
@@ -260,7 +261,7 @@
         } else {
             return false;
         }
-        
+
     }
     //Start paggination
     var page = 0;
