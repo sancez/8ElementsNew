@@ -26,39 +26,128 @@
 </div>
 
 <div class="row">
-    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#exampleModal">
-        <input type="text" class="form-control" />
+    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#themes">
+        <div class="themes"></div>
     </div>
-    <div class="col-xl-3 col-md-5 mb-4">
-        <input type="text" class="form-control" />
+    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#classification">
+        <div class="classification"></div>
     </div>
-    <div class="col-xl-3 col-md-5 mb-4">
-        <input type="text" class="form-control" />
+    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#ageRating">        
+        <div class="ageRating"></div>
     </div>
 </div>
 <!--Row-->
 
-<button class="btn btn-primary btn-sm mb-5">Save</button>
+<button class="btn btn-danger btn-sm mb-5">Save</button>
 <button class="btn btn-primary btn-sm mb-5">Cancel</button>
 
 
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal Themes -->
+<div class="modal fade" id="themes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Themes Options</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                ...
+            <div class="modal-body" style="background: #f8f9fc ">
+                <div class="row ml-3 mb-3">
+
+                    <div class="card" style="width: 18rem;">
+                        @*  <img src="..." class="card-img-top" alt="...">*@
+                        <div class="card-body">
+                            <h5 class="card-title">Themes</h5>
+                            <div id="themesGroup"></div>
+
+                            @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group ml-3">
+                    <input type="text" id="txtThemes" class="form-control" style="width:20%" />
+                    <button class="btn btn-primary mt-2" type="button" onclick="addThemes()">Add Themes</button>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <div id="saveThemes"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal Clasification -->
+<div class="modal fade" id="classification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Classification Options</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background: #f8f9fc ">
+                <div class="row ml-3 mb-3">
+
+                    <div class="card" style="width: 18rem;">
+                        @*  <img src="..." class="card-img-top" alt="...">*@
+                        <div class="card-body">
+                            <h5 class="card-title">Clasification</h5>
+                            <div id="clasificationGroup"></div>
+
+                            @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>                   
+
+
+                </div>
+                <div class="form-group ml-3">
+                    <input type="text" id="txtClasification" class="form-control" style="width:20%" />
+                    <button class="btn btn-primary mt-2" type="button" onclick="addClasification()">Add Clasification</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="saveClasification"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Age Rating -->
+<div class="modal fade" id="ageRating" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Age Rating Options</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="background: #f8f9fc ">
+                <div class="row ml-3 mb-3">
+
+                    <div class="card" style="width: 18rem;">
+                        @*  <img src="..." class="card-img-top" alt="...">*@
+                        <div class="card-body">
+                            <h5 class="card-title">Age Rating</h5>
+                            <div id="ageRatingGroup"></div>
+
+                            @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-group ml-3">
+                    <input type="text" id="txtAgeRating" class="form-control" style="width:20%" />
+                    <button class="btn btn-primary mt-2" type="button" onclick="addAgeRating()">Add Age Rating</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div id="saveAgeRating"></div>
             </div>
         </div>
     </div>
@@ -72,7 +161,7 @@
 
         <div class="mySlides">
             <div class="numbertext">1 / 4</div>
-            <img id="lrg_img" src="img_nature_wide.jpg" style="width:100%">
+            <img id="lrg_img" src="" style="width:100%">
         </div>
         <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
         <a class="next" onclick="plusSlides(1)">&#10095;</a>
@@ -88,6 +177,12 @@
         $(document).ready(function () {
             //get contentId=1170
             GetContentDetail()
+            ContentCategory()
+            ContentClassification()
+            ContentAgeRating()
+            saveThemes()
+            saveClasification()
+            saveAgeRating()
         });
         //$.urlParam('param1');
         function GetContentDetail() {
@@ -120,12 +215,8 @@
                                                             <div class="mt-2 mb-0 text-muted text-xs">
                                                                @* <span class="text-primary mr-2"><i class="fa fa-arrow-up"></i> Silahkan Klik Diatas &nbsp </span>*@
 
-
-
                                                                 @*<span class="text-success mr-2"><i class="fa fa-arrow-down"></i>
                                                                      Show Video In Path =>
-
-
                                                                      `+ item.ContentPath + `Type = `+item.ContentTypeId+`
                                                                 </span>*@`;
                             if (item.ContentTypeId == 5) {
@@ -200,7 +291,7 @@
             $(`#item_${itemId}`).val(status);
             $(`#btn-app-${itemId}`).prop('disabled', status == 1);
             $(`#btn-rjc-${itemId}`).prop('disabled', status == 2);
-            
+
         }
 
         function openModal(url) {
@@ -237,8 +328,209 @@
                 dots[i].className = dots[i].className.replace(" active", "");
             }
             slides[slideIndex - 1].style.display = "block";
-            dots[slideIndex - 1].className += " active";
-            captionText.innerHTML = dots[slideIndex - 1].alt;
+            @*dots[slideIndex - 1].className += " active";*@
+            @*captionText.innerHTML = dots[slideIndex - 1].alt;*@
+        }
+
+        function ContentCategory(CloseButtonAddThemes)
+        {
+            $.ajax({
+                url: '/Content/ContentCategory',
+                success: function (response)
+                {
+                    if (response.Success) {
+                        var getData = response.data;
+                        var content = "";
+                        var content1 = "";
+                        for (var i = 0; i < getData.length;i++)
+                        {
+                            var data = getData[i];
+                            $("#themesGroup").empty();
+                            var html = ` <input type="radio" name="themes" id="themes_${data.Id}" value="${data.Id}" data-nameThemes="${data.Name}" ><label for="themes_${data.Id}"> ${data.Name}</label><br>`;
+
+
+                            content += html;
+                        }
+                        $("#themesGroup").append(content);
+
+                        if (CloseButtonAddThemes == null)
+                        {
+                            var html1 = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="saveThemes()" data-dismiss="modal">Save changes</button>`;
+                            content1 += html1;
+                            $("#saveThemes").append(content1);
+
+                        }
+                        CloseButtonAddThemes = null
+
+                    }
+                }
+            });
+        }
+
+        function addThemes()
+        {
+            var addData = {
+                Name: $('#txtThemes').val(),
+                Platforms: []
+            }
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: "/Content/AddContentCategory",
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                data: JSON.stringify(addData),
+                success: function (response) {
+                    if (response.Success) {
+                        ContentCategory(1)
+                        $('#txtThemes').val('');
+                    } else {
+                        alert("Failed")
+                    }
+                },
+                error: function () {
+                    alert("There Is Some Problem With Your program code");
+                }
+
+            });
+        }
+
+        function saveThemes()
+        {
+            //get value id radio button checked
+            var checkedThemes = $('input[name="themes"]:checked');
+            var id = checkedThemes.val();
+            //get name id radio button
+            var name = checkedThemes.attr("data-nameThemes");
+            var content = "";
+            if (name == null) name = "";
+            content += `<input type="text" class="form-control" placeholder="Themes" value="${name}" />`;
+            $(".themes").html(content);
+
+        }
+
+        function ContentClassification(CloseButtonClasification)
+        {
+            $.ajax({
+                url: '/Content/ContentClassification',
+                success: function (response) {
+                    if (response.Success) {
+                        var getData = response.data;
+                        var content = "";
+                        var content1 = "";
+                        for (var i = 0; i < getData.length; i++) {
+                            var data = getData[i];
+                            var html = `<input type="radio" name="clasification" id="Clasification_${data.Id}" value="${data.Id}" data-nameClasification="${data.Name}" ><label for="Clasification_${data.Id}"> ${data.Name}</label><br>`;
+                            content += html;
+                        }
+                        $("#clasificationGroup").html(content);
+                        if (CloseButtonClasification == null) {
+                            var html1 = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="saveClasification()" data-dismiss="modal">Save changes</button>`;
+                            content1 += html1;
+                            $("#saveClasification").html(content1);
+
+                        }
+                        CloseButtonClasification = null
+                    }
+                }
+            });
+        }
+        function addClasification()
+        {
+            var addData = {
+                Name : $("#txtClasification").val()
+            }
+            $.ajax({
+                async: true,
+                type: 'POST',
+                url: '/Content/AddContentClassification',
+                data: JSON.stringify(addData),
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                success: function (response) {
+                    if (response.Success) {
+                        ContentClassification(1);
+                        $("#txtClasification").val("")
+                    }
+                },
+                error: function () {alert("You Have Some Problem With Your Program Code")}
+            });
+        }
+
+        function saveClasification()
+        {
+            //Get Value Id
+            var checkedClasification = $('input[name="clasification"]:checked');
+            var id = checkedClasification.val();
+            //Get Name Id Radio Button
+            var name = checkedClasification.attr("data-nameClasification");
+            var content = "";
+            if (name == null) name = "";
+            content += `<input type="text" class="form-control" placeholder="Classification" value="${name}" />`;
+            $(".classification").html(content);
+        }
+
+        function ContentAgeRating(CloseButtonAgeRating)
+        {
+            $.ajax({
+                url: '/Content/ContentAgeRating',
+                success: function (respon) {
+                    if (respon.Success) {
+                        var getData = respon.data;
+                        var content = "";
+                        var content1 = "";
+                        for (var i = 0; i < getData.length; i++) {
+                            var data = getData[i];
+                            var html = `<input type="radio" name="ageRating" id="ageRating_${data.Id}" value="${data.Id}" data-nameAgeRating="${data.Name}" ><label for="ageRating_${data.Id}"> ${data.Name}</label><br>`;
+                            content += html;
+                        }
+                        $("#ageRatingGroup").html(content);
+                        if (CloseButtonAgeRating == null) {
+                            var html1 = `<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="saveAgeRating()" data-dismiss="modal">Save changes</button>`;
+                            content1 += html1;
+                            $("#saveAgeRating").html(content1);
+
+                        }
+                        CloseButtonAgeRating = null
+                    }
+                },
+                error: function () {alert("there is some problem with your program code") }
+            });
+        }
+
+        function addAgeRating() {
+            var addData = {
+                Name : $("#txtAgeRating").val()
+            };
+            $.ajax({
+                async : true,
+                type: 'POST',
+                url : '/Content/AddContentAgeRating',
+                data: JSON.stringify(addData),
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                success: function (respon) {
+                    if (respon.Success) {
+                        ContentAgeRating(1);
+                        $("#txtAgeRating").val('')
+                    }
+                },
+                error: function () { alert("there is some problem with your program code")}
+            });
+        }
+
+        function saveAgeRating()
+        {
+            var checkedAgeRating = $('input[name="ageRating"]:checked');
+            var id = checkedAgeRating.val();
+            var name = checkedAgeRating.attr("data-nameAgeRating");
+            var content = "";
+            if (name == null) name = "";
+            content += `<input type="text" class="form-control" value="${name}" placeholder="Age Rating"/>`;
+            $(".ageRating").html(content);
         }
 
     </script>

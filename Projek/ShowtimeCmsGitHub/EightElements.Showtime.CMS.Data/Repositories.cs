@@ -112,7 +112,7 @@ namespace EightElements.Showtime.CMS.Data
         {
             using (var dc = new ShowtimeEntities())
             {
-
+                //Dont Forget To Connect Internet and use pvn connection
                 var userDetails = dc.UserAdmins.Where(x => x.UserName == userModel.UserName && x.Password == userModel.Password).FirstOrDefault();
                 return userDetails;
 
@@ -496,7 +496,8 @@ namespace EightElements.Showtime.CMS.Data
             using (var dc = new ShowtimeEntities())
             {
                 var data = (from objData in dc.ContentAgeRatings orderby objData.Name descending
-                            where objData.Name.Contains(keyword) 
+                            where objData.Name.Contains(keyword)
+                            orderby objData.Id descending
                             select objData
                 ).ToList();
                 return data;
@@ -543,7 +544,7 @@ namespace EightElements.Showtime.CMS.Data
             {
                 var data = (from objData in dc.ContentCategories
                             orderby objData.Name descending
-                            where objData.Name.Contains(keyword)
+                            where objData.Name.Contains(keyword) orderby objData.Id descending
                             select objData
                             ).ToList();
                 return data;
@@ -554,8 +555,10 @@ namespace EightElements.Showtime.CMS.Data
         {
             using (var dc = new ShowtimeEntities())
             {
+               
                 var data = new ContentCategory()
                 {
+                    
                     Name = objData.Name
                 };
                 dc.ContentCategories.Add(data);
@@ -563,17 +566,21 @@ namespace EightElements.Showtime.CMS.Data
                 dc.SaveChanges();
 
                 //loop data yg ada di objData.platforms
-                var pl = objData.Platforms;
-
-                foreach(var p in pl)
+                if(objData.Platforms != null)
                 {
-                    var map = new ContentCategoryPlatformMap()
+                    var pl = objData.Platforms;
+
+                    foreach (var p in pl)
                     {
-                        CategoryId = data.Id,
-                        PlatformId = p.Id
-                    };
-                    dc.ContentCategoryPlatformMaps.Add(map);
+                        var map = new ContentCategoryPlatformMap()
+                        {
+                            CategoryId = data.Id,
+                            PlatformId = p.Id
+                        };
+                        dc.ContentCategoryPlatformMaps.Add(map);
+                    }
                 }
+                
 
                 dc.SaveChanges();                
                 return data;
@@ -641,6 +648,7 @@ namespace EightElements.Showtime.CMS.Data
                 var data = (from objData in dc.ContentClassifications
                             orderby objData.Name descending
                             where objData.Name.Contains(keyword)
+                            orderby objData.Id descending
                             select objData
                             ).ToList();
                 return data;
@@ -811,12 +819,14 @@ namespace EightElements.Showtime.CMS.Data
             }
         }*/
 
-        public static UpdateContentDTO GetContentDetail(int contentId)
+        public static UpdateContentDTO GetContentDetail(int contentId, bool includeThumbnail = false)
         {
             using (var dc = new ShowtimeEntities())
             {
                 var content = dc.Contents.Where(a => a.Id == contentId).FirstOrDefault();
-                var items = dc.ContentItems.Where(a => a.ContentId == contentId).ToList();
+                var queryItem = dc.ContentItems.Where(a => a.ContentId == contentId);
+                if (!includeThumbnail) queryItem = queryItem.Where(a => a.ContentTypeId != 4);
+                var items = queryItem.ToList();
                 var tags = dc.ContentTags.Where(a => a.ContentId == contentId).Select(a => a.Tag).ToList();
                 var user = dc.UserDetails.Where(a => a.UserId == content.UserId).FirstOrDefault();
 
