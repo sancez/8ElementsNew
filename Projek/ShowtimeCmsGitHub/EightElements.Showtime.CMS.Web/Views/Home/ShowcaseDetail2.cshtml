@@ -18,162 +18,178 @@
 
 
 <h2>@ViewBag.Title.</h2>
-<h3></h3>
+<small><i>
+    Created By <span id="txtUsername"></span> || Date : <span id="txtCreateDate"></span> <br>
+    Last Updated By Name: <span id="txtLastUpdatedByName"></span> ||
+    Last Updated Date: <span id="txtLastUpdatedDate"></span>
+</i></small>
 
+    <h3></h3>
 
-
-<div class="row mb-3" id="contentBody">
-</div>
-
-<div class="row">
-    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#themes">
-        <div class="themes"></div>
+    @*hidden page get element*@
+    <div class="form-group">
+        <input type="text" id="txtIdContent" value="" hidden />
+        <input type="text" id="txtUserId" value="" hidden />
+        <input type="text" id="txtUsername" value="" hidden />
+        <input type="text" id="txtTitle" value="" hidden />
     </div>
-    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#classification">
-        <div class="classification"></div>
+
+    <div class="row mb-3" id="contentBody">
     </div>
-    <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#ageRating">        
-        <div class="ageRating"></div>
+
+    <div class="row">
+        <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#themes">
+            <div class="themes"></div>
+        </div>
+        <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#classification">
+            <div class="classification"></div>
+        </div>
+        <div class="col-xl-3 col-md-5 mb-4" data-toggle="modal" data-target="#ageRating">
+            <div class="ageRating"></div>
+        </div>
     </div>
-</div>
-<!--Row-->
+    <!--Row-->
+    <div class="form-group">
+        <input type="text" class="form-control col-xl-3 col-md-5 mb-3" id="txtTags">
+            <div id="isCPGroup"></div>            
+            
+    </div>
+    <button class="btn btn-danger  mb-5">Cancel</button>
+    <button class="btn btn-primary  mb-5" onclick="savePage()">Save</button>
 
-<button class="btn btn-danger btn-sm mb-5">Save</button>
-<button class="btn btn-primary btn-sm mb-5">Cancel</button>
 
 
+    <!-- Modal Themes -->
+    <div class="modal fade" id="themes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Themes Options</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fc ">
+                    <div class="row ml-3 mb-3">
 
-<!-- Modal Themes -->
-<div class="modal fade" id="themes" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Themes Options</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="background: #f8f9fc ">
-                <div class="row ml-3 mb-3">
+                        <div class="card" style="width: 18rem;">
+                            @*  <img src="..." class="card-img-top" alt="...">*@
+                            <div class="card-body">
+                                <h5 class="card-title">Themes</h5>
+                                <div id="themesGroup"></div>
 
-                    <div class="card" style="width: 18rem;">
-                        @*  <img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Themes</h5>
-                            <div id="themesGroup"></div>
-
-                            @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                                @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                            </div>
                         </div>
+
                     </div>
-
-                </div>
-                <div class="form-group ml-3">
-                    <input type="text" id="txtThemes" class="form-control" style="width:20%" />
-                    <button class="btn btn-primary mt-2" type="button" onclick="addThemes()">Add Themes</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div id="saveThemes"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-<!-- Modal Clasification -->
-<div class="modal fade" id="classification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Classification Options</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="background: #f8f9fc ">
-                <div class="row ml-3 mb-3">
-
-                    <div class="card" style="width: 18rem;">
-                        @*  <img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Clasification</h5>
-                            <div id="clasificationGroup"></div>
-
-                            @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
-                        </div>
-                    </div>                   
-
-
-                </div>
-                <div class="form-group ml-3">
-                    <input type="text" id="txtClasification" class="form-control" style="width:20%" />
-                    <button class="btn btn-primary mt-2" type="button" onclick="addClasification()">Add Clasification</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <div id="saveClasification"></div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Age Rating -->
-<div class="modal fade" id="ageRating" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Age Rating Options</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body" style="background: #f8f9fc ">
-                <div class="row ml-3 mb-3">
-
-                    <div class="card" style="width: 18rem;">
-                        @*  <img src="..." class="card-img-top" alt="...">*@
-                        <div class="card-body">
-                            <h5 class="card-title">Age Rating</h5>
-                            <div id="ageRatingGroup"></div>
-
-                            @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
-                        </div>
+                    <div class="form-group ml-3">
+                        <input type="text" id="txtThemes" class="form-control" style="width:20%" />
+                        <button class="btn btn-primary mt-2" type="button" onclick="addThemes()">Add Themes</button>
                     </div>
-
                 </div>
-                <div class="form-group ml-3">
-                    <input type="text" id="txtAgeRating" class="form-control" style="width:20%" />
-                    <button class="btn btn-primary mt-2" type="button" onclick="addAgeRating()">Add Age Rating</button>
+                <div class="modal-footer">
+                    <div id="saveThemes"></div>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <div id="saveAgeRating"></div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- Modal image -->
-<div id="myModal" class="modalImage">
-    <span class="close cursor" onclick="closeModal()">&times;</span>
-    <div class="modal-content">
+    <!-- Modal Clasification -->
+    <div class="modal fade" id="classification" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Classification Options</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fc ">
+                    <div class="row ml-3 mb-3">
 
-        <div class="mySlides">
-            <div class="numbertext">1 / 4</div>
-            <img id="lrg_img" src="" style="width:100%">
-        </div>
-        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                        <div class="card" style="width: 18rem;">
+                            @*  <img src="..." class="card-img-top" alt="...">*@
+                            <div class="card-body">
+                                <h5 class="card-title">Clasification</h5>
+                                <div id="clasificationGroup"></div>
 
-        <div class="caption-container">
-            <p id="caption"></p>
+                                @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="form-group ml-3">
+                        <input type="text" id="txtClasification" class="form-control" style="width:20%" />
+                        <button class="btn btn-primary mt-2" type="button" onclick="addClasification()">Add Clasification</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="saveClasification"></div>
+                </div>
+            </div>
         </div>
     </div>
-</div>
-@section scripts
+
+    <!-- Modal Age Rating -->
+    <div class="modal fade" id="ageRating" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Age Rating Options</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="background: #f8f9fc ">
+                    <div class="row ml-3 mb-3">
+
+                        <div class="card" style="width: 18rem;">
+                            @*  <img src="..." class="card-img-top" alt="...">*@
+                            <div class="card-body">
+                                <h5 class="card-title">Age Rating</h5>
+                                <div id="ageRatingGroup"></div>
+
+                                @* <a href="#" class="btn btn-primary">Go somewhere</a>*@
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="form-group ml-3">
+                        <input type="text" id="txtAgeRating" class="form-control" style="width:20%" />
+                        <button class="btn btn-primary mt-2" type="button" onclick="addAgeRating()">Add Age Rating</button>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div id="saveAgeRating"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal image -->
+    <div id="myModal" class="modalImage">
+        <span class="close cursor" onclick="closeModal()">&times;</span>
+        <div class="modal-content">
+
+            <div class="mySlides">
+                <div class="numbertext">1 / 4</div>
+                <img id="lrg_img" src="" style="width:100%">
+            </div>
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div class="caption-container">
+                <p id="caption"></p>
+            </div>
+        </div>
+    </div>
+    @section scripts
 {
-    <script>
+        <script>
         $(document).ready(function () {
             //get contentId=1170
             GetContentDetail()
@@ -185,9 +201,17 @@
             saveAgeRating()
         });
         //$.urlParam('param1');
+
+
         function GetContentDetail() {
             var contentId = $.urlParam('contentId');
             var content = "";
+            var tglLastUpdatedDate = "";
+            var LastUpdatedByName = "";
+            var CreateDate = "";
+            var username = "";
+            var isCP = "";
+            var GetcontentId = `<input type="text" value="${contentId}" id="txtGetContentDetail">`;
            // $.urlParam('contentId');
             // show image and video, button approve reject => task For monday TASSSKKKKKK
             $.ajax({
@@ -195,6 +219,30 @@
                 success: function (response) {
                     if (response.Success) {
                         var data = response.Data;
+                        isCP += `<input id ="txtIsCP" type="checkbox" value="true"  ${data.IsCP == true ? "checked" : ""}> <label for="txtIsCP">IsCP</label>`;
+                        $("#isCPGroup").html(isCP);
+
+                        $("#txtTags").val(data.Tags);
+                        var lud = new Date(data.LastUpdatedDate);
+                        tglLastUpdatedDate += lud.getDate() + `-` + lud.getMonth() + `-` + lud.getFullYear() + ` ` + lud.getHours().toString().padStart(2,0) + `:` + lud.getMinutes().toString().padStart(2,0);
+                        $("#txtLastUpdatedDate").html(tglLastUpdatedDate);
+                        var cr = new Date(data.CreateDate);
+                        CreateDate += cr.getDate() + `-` + cr.getMonth() + `-` + cr.getFullYear() + ` ` + cr.getHours().toString().padStart(2,0) + `:` + cr.getMinutes().toString().padStart(2,0);
+                        $("#txtCreateDate").html(CreateDate);
+                        LastUpdatedByName += data.LastUpdatedByName;
+                        $("#txtLastUpdatedByName").html(LastUpdatedByName);
+                        username += data.Username;
+                        $("#txtUsername").html(username);
+                        $("#txtUserId").val(data.UserId);
+                        $("#txtTitle").val(data.Title);
+                        $("#txtUsername").val(data.Username);
+                        $("#txtIdContent").val(data.Id);
+                        $("#txtFunctionAgeRating").val(data.AgeRatingName);
+                        $("#txtFunctionAgeRatingId").val(data.AgeRatingId);
+                        $("#txtFunctionClasification").val(data.ClassificationName);
+                        $("#txtFunctionClasificationId").val(data.ClassificationId);
+                        $("#txtFunctionThemes").val(data.CategoryName);
+                        $("#txtFunctionThemesId").val(data.CategoryId);
                         var items = data.ContentItems;
                         @*var contentitem = data.contentitem;
                         contentitem[0].filename; => not looping *@
@@ -202,6 +250,7 @@
                         for (var i = 0; i < items.length; i++) {
                             var item = items[i];
                             $("#contentBody").empty();
+
                             //item.filename
                             //add vidio <source src="" type="video/mp4">
                             var html = `<div class="col-md-4 mb-4" style="flex: 50%;">
@@ -209,6 +258,7 @@
                                             <div class="card h-100">
                                                 <div class="card-body">
                                                     <div class="row align-items-center">
+
                                                         <div class="col mr-2">
                                                            @* <div class="text-xs font-weight-bold text-uppercase mb-1">Absensi</div>*@
                                                            @* <div class="h5 mb-0 font-weight-bold text-gray-800">Masuk</div>*@
@@ -222,7 +272,7 @@
                             if (item.ContentTypeId == 5) {
                                 var html1 = `
                                                 <video width="100%"controls>
-                                                      <source type="video/mp4" src="@cdnVideo/`+ item.ContentPath +`" style="width:100%" height="100%">
+                                                      <source type="video/mp4" src="@cdnVideo/`+ item.ContentPath + `" style="width:100%" height="100%" value="${item.ContentPath}">
                                                       Your browser does not support HTML video.
                                              </video>`
                             }
@@ -246,22 +296,31 @@
 
 
                             }
+                            var statusValueReject = "";
+                            var statusValueApprove = "";
+                            var getStatusApp = 1;
+                            var getStatusRjc = 2;
+                            if (item.Status == null || item.Status == 1 || item.Status == 2 ) {
+                                statusValueApprove = 1;
+                                statusValueReject = 2;                              
+                            }                            
 
-                            var html2 = ` </div></div><br><br>
-                                                        <div class="col-auto">
-                                                        <input id="item_${item.Id}" type="hidden" value="">
-                                                        <button id="btn-app-${item.Id}" type="submit" class="btn btn-primary mt-2 btn-sm" onclick="itemApprove(${item.Id},1)" >Approve</button><br>
-                                                        <button id="btn-rjc-${item.Id}" type="submit" class="btn btn-danger mt-2 btn-sm" onclick="itemApprove(${item.Id},2)" >Reject</button>
+                                var html2 = ` </div></div><br><br>
+                                                                <div class="col-auto">
+                                                                <input id="item_${item.Id}" type="hidden" value="${item.Status}" data-idItem="${item.Id}" >
+                                                                <button id="btn-app-${item.Id}" type="submit" class="btn btn-primary mt-2 btn-sm" value="${getStatusApp}" onclick="itemApprove(${item.Id},${statusValueApprove})" ${item.Status == 1 ? "disabled" : ""}>Approve</button><br>
+                                                                <button id="btn-rjc-${item.Id}" type="submit" class="btn btn-danger mt-2 btn-sm" value="${getStatusRjc}" onclick="itemApprove(${item.Id},${statusValueReject})" ${item.Status == 2 ? "disabled" : ""} >Reject</button>
+                                                                </div>
+                                                                @*<div class="col-auto">
+                                                                    <i class="fas fa-calendar fa-2x text-primary"></i>
+                                                                </div>*@
+                                                            </div>
                                                         </div>
-                                                        @*<div class="col-auto">
-                                                            <i class="fas fa-calendar fa-2x text-primary"></i>
-                                                        </div>*@
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </a>
-                                            </div>`;
-
+                                                </a>
+                                                    </div>`;
+                           
+                          
                                 contentDiv += html;
                                 contentDiv += html1;
                                 contentDiv += html2;
@@ -348,7 +407,6 @@
                             $("#themesGroup").empty();
                             var html = ` <input type="radio" name="themes" id="themes_${data.Id}" value="${data.Id}" data-nameThemes="${data.Name}" ><label for="themes_${data.Id}"> ${data.Name}</label><br>`;
 
-
                             content += html;
                         }
                         $("#themesGroup").append(content);
@@ -404,8 +462,9 @@
             //get name id radio button
             var name = checkedThemes.attr("data-nameThemes");
             var content = "";
-            if (name == null) name = "";
-            content += `<input type="text" class="form-control" placeholder="Themes" value="${name}" />`;
+            @*if (name == null) name = "";*@
+            content += `<input type="text" id="txtFunctionThemes" data-idSaveThemes="${id}" class="form-control" placeholder="Themes" value="${name}" />`;
+            content += `<input type="text" id="txtFunctionThemesId" value="${id}" class="form-control" hidden/>`;
             $(".themes").html(content);
 
         }
@@ -467,8 +526,9 @@
             //Get Name Id Radio Button
             var name = checkedClasification.attr("data-nameClasification");
             var content = "";
-            if (name == null) name = "";
-            content += `<input type="text" class="form-control" placeholder="Classification" value="${name}" />`;
+            @*if (name == null) name = "";*@
+            content += `<input type="text" class="form-control" data-ClasificationId="${id}" id="txtFunctionClasification" placeholder="Classification" value="${name}" />`;
+            content += `<input type="text" id="txtFunctionClasificationId"  value="${id}" hidden />`;
             $(".classification").html(content);
         }
 
@@ -528,10 +588,80 @@
             var id = checkedAgeRating.val();
             var name = checkedAgeRating.attr("data-nameAgeRating");
             var content = "";
-            if (name == null) name = "";
-            content += `<input type="text" class="form-control" value="${name}" placeholder="Age Rating"/>`;
+            @*if (name == null) name = nRating;*@
+
+            content += `<input type="text" class="form-control" data-ageRating="${id}" id="txtFunctionAgeRating" value="${name}" placeholder="Age Rating"/>`;
+            content += `<input type="text" class="form-control"  id="txtFunctionAgeRatingId" value="${id}" hidden/>`;
             $(".ageRating").html(content);
         }
 
-    </script>
-}
+        function savePage() {
+            var idContent = $("#txtIdContent").val();
+            var getThemesId = $("#txtFunctionThemesId").val();//("#txtFunctionThemes").attr("data-idSaveThemes");
+            var getClasificationId = $("#txtFunctionClasificationId").val();
+            var getAgeRating = $("#txtFunctionAgeRatingId").val();
+            var itemsEl = $("[id^='item_']");
+            var items = [];
+            var tags = $("#txtTags").val();
+            var tagsArray = tags.split(',');
+            
+            for (var i = 0; i < itemsEl.length;i++)
+            {
+                var item = itemsEl[i];
+                var id = $(item).attr("data-idItem");
+                var status = $(item).val();
+
+                if (status == "") {
+                    alert('Harap selesaikan proses approve/reject content sebelum save data');
+                    return false;
+                }
+
+                items.push({
+                    id: id,
+                    status: status
+                })
+            }
+            var isCpValue = "";
+            var checkedIsCP = $('input[id="txtIsCP"]:checked');
+            var idCheckedIsCP = checkedIsCP.val();
+            if (idCheckedIsCP == "true") {
+                isCpValue = "true"
+            } else {
+                isCpValue = "false"
+            }
+            var result = {
+                Id: idContent,
+                UserId: $("#txtUserId").val(),
+                Username: $("#txtUsername").val(),
+                Title: $("#txtTitle").val(),
+                CategoryId: getThemesId,
+                ClassificationId: getClasificationId,
+                AgeRatingId: getAgeRating,
+                IsCP: isCpValue,
+                Tags: tagsArray,
+                ContentItems: items
+                //LastCreatedDate: null,
+                //LastCreatedBy: null
+            }
+            console.log(result);
+            
+            @*$.ajax({
+                async: true,
+                type: 'POST',
+                url: '/Content/UpdateContentDetail',
+                data: JSON.stringify(result),
+                dataType: 'JSON',
+                contentType: 'application/json;charset=utf-8',
+                success: function (respon) {
+                    if (respon.Success) {
+                        alert("Success update data ..");
+                        GetContentDetail();
+                    }
+                },
+                error: function (response) { alert("there is some problem with your program code")}
+            });*@
+            
+        }
+
+        </script>
+    }

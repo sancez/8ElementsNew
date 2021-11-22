@@ -78,6 +78,7 @@ namespace EightElements.Showtime.CMS.Web.Controllers
             ViewData["listContent"] = listContentDetail;
             return View();
         }
+       
         public ActionResult ShowcaseDetail(int contentId)
         {
             var data = Repositories.GetContentParticipant(contentId);
@@ -107,6 +108,11 @@ namespace EightElements.Showtime.CMS.Web.Controllers
             return View();
         }
 
+        public ActionResult ShowcaseDetail2()
+        {
+            return View();
+        }
+        //......ShowcaseDetail2 balikin view
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

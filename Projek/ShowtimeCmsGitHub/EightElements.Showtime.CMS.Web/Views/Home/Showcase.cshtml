@@ -25,7 +25,7 @@
 
 
             <div class="list-email-form">
-                <input type="text" id="search">
+                <input type="text" id="keySearch">
                 <button onclick="search()">Search</button>
                 <button onclick="getAllEventParticipant();">View all</button>
 
@@ -66,6 +66,7 @@
         //start pagination => 10/21/2021
         var no = 1;
         var contentStatus;
+        var keySearch = "";
 
         $("#pagination").on('change', function () {
             no = this.value;
@@ -86,7 +87,11 @@
 
         function getAllEventParticipant() {
             contentStatus = $("#selStatus").val();
-            $.get('/rest/GetAllShowcase?startIndex=' + page + '&pageSize=' + pageSize + '&contentStatus=' + contentStatus, function (data, status) {
+            if (contentStatus == "") {
+                contentStatus = "";          
+            }
+           
+            $.get('/rest/GetAllShowcase?startIndex=' + page + '&pageSize=' + pageSize + '&contentStatus=' + contentStatus + '&keySearch=' + keySearch, function (data, status) {
                 var json = JSON.parse(data);
                 drawAllEventParticipant(json.Showcases);
                 drawPaging(json.PageCount);
@@ -156,19 +161,19 @@
                 if (value.Content.Status == 1) {
                     //status = 'Approved';
                     content += `<td align="center">
-                    <a href="/home/showcasedetail?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"></i></a>                    
+                    <a href="/home/showcasedetail2?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"></i></a>                    
                     <button class="btn-reject" onclick="UpdateStatus(${value.Content.Id},2)">Reject</button>
                     </td></tr>`;
                 } else if (value.Content.Status == 2) {
                     //status = 'Rejected';
                     content += `<td align="center">
-                    <a href="/home/showcasedetail?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"></i></a>
+                    <a href="/home/showcasedetail2?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"></i></a>
                     <button class="btn-approve" onclick="UpdateStatus(${value.Content.Id},1)">Approve</button>                    
                     </td></tr>`;
                 } else {
                     //status = 'Waiting Approval';
                     content += `<td align="center">
-                    <a href="/home/showcasedetail?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"></i></a>
+                    <a href="/home/showcasedetail2?contentId=${value.Content.Id}"><i class="fas fa-edit fa-lg"></i></a>
                     <button class="btn-approve" onclick="UpdateStatus(${value.Content.Id},1)">Approve</button>
                     <button class="btn-reject" onclick="UpdateStatus(${value.Content.Id},2)">Reject</button>
                     </td></tr>`;
@@ -179,12 +184,16 @@
             $("#listEventParticipant").append(content);
         }
 
-        function search() {
+        @*function search() {
             var value = $("#search").val();
             GetAllEventParticipantBySearchName(eventId, value)
                 .then(data => {
                     drawAllEventParticipant(data);
                 })
+        }*@
+        function search() {
+            keySearch = document.getElementById("keySearch").value;           
+            getAllEventParticipant();
         }
 
         function drawEvent(response) {

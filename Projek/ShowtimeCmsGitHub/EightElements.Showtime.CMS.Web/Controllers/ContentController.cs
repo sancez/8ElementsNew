@@ -1,8 +1,11 @@
 ﻿using EightElements.Showtime.CMS.Data;
 using EightElements.Showtime.CMS.Data.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 
@@ -16,6 +19,24 @@ namespace EightElements.Showtime.CMS.Web.Controllers
         {
             return View();
         }
+        public static long ToUnixEpochDate(DateTime date) =>
+            new DateTimeOffset(date).ToUniversalTime().ToUnixTimeSeconds();
+        public static string CreateAccessToken(string path, string secret)
+        {
+            var now = DateTime.Now;
+            int timestamp = (int)ToUnixEpochDate(now);
+            string message = string.Format("{0}{1}", path, timestamp);
+            var encoding = new UTF8Encoding();
+            byte[] secretBytes = encoding.GetBytes(secret);
+            byte[] messageBytes = encoding.GetBytes(message);
+            using (var hmac = new HMACSHA256(secretBytes))
+            {
+                byte[] hash = hmac.ComputeHash(messageBytes);
+                string token = HttpUtility.UrlEncode(Convert.ToBase64String(hash));
+                return string.Format("{0}-{1}", timestamp, token);
+            }
+        }
+
         private ShowtimeEntities ShowtimeEntities;
         public ContentController()
         {
@@ -150,8 +171,43 @@ namespace EightElements.Showtime.CMS.Web.Controllers
         {
             try
             {
+                
                 var data = Repositories.GetContentDetail(contentId);
-                return Json(new { Success = true, Message = "Success", Data = data }, JsonRequestBehavior.AllowGet);
+                //me-start
+                
+                var directory = "images/";
+
+                var items = data.ContentItems;
+                var z = items.Count();
+                for (var i = 0; i < z; i++)
+                {
+                    
+
+                    if (data.ContentItems[i].ContentTypeId < 5)
+                    {
+                        //directory = "videos/";
+                       directory = "images/";
+                    }
+                    else {
+                        //directory = "images/";
+                        directory = "videos/";
+                    }
+                    var secretKey = System.Configuration.ConfigurationManager.AppSettings["SecretKey"] ?? "showtime";
+                    var lnkUrl = data.ContentItems[i];
+                    if (lnkUrl == null)
+                    {
+                        lnkUrl = null; 
+                    }
+                    if (data.ContentItems[i].ContentPath != null) {
+                        var path = data.ContentItems[i].ContentPath.Substring(0, 1);
+                        var token = CreateAccessToken((path == "/" ? "" : "/") + directory + data.ContentItems[i].ContentPath, secretKey);
+                        data.ContentItems[i].ContentPath = directory + data.ContentItems[i].ContentPath + "?verify=" + token;
+                    }
+                    
+                    //listContentDetail.Add(content);
+                }
+                //me-end
+                return Content(JsonConvert.SerializeObject(new { Success = true, Message = "Success", Data = data }), "application/json");
             }
             catch (Exception e)
             {
@@ -166,7 +222,7 @@ namespace EightElements.Showtime.CMS.Web.Controllers
             {
                 var userId = (int) (Session["userID"]==null ? 24 : Session["userID"]);
                 var data = Repositories.UpdateContentDetail(dto, userId);
-                return Json(new { Success = true, Message = "Success", Data = data });
+                return Content(JsonConvert.SerializeObject(new { Success = true, Message = "Success", Data = data }), "application/json");
             }
             catch(Exception e)
             {

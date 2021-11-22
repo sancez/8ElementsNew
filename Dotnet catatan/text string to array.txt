@@ -1,0 +1,11 @@
+var a = 'tag1,tes,dsaasf'
+undefined
+var ar = a.split(',')
+undefined
+ar
+(3) ['tag1', 'tes', 'dsaasf']
+0: "tag1"
+1: "tes"
+2: "dsaasf"
+length: 3
+[[Prototype]]: Array(0)
