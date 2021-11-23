@@ -23,7 +23,7 @@ namespace Penggajian.Repositori
                                   password = objUser.password,
                                   role = objUser.role
                               };
-                return varUser.ToList();
+                return varUser.Skip(startIndex * pageSize).Take(pageSize).ToList();
             }
         }
 

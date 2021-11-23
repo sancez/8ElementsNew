@@ -2,10 +2,10 @@
 @{
     ViewBag.Title = "Index";
 
-    @*if(Session["userID"] == null)
+    if(Session["userID"] == null)
     {
         Response.Redirect("~/Login/index");
-    }*@
+    }
 }
 <h2>Welcome @Session["userName"]</h2>
 <hr/>
@@ -19,13 +19,15 @@
         <option value="0">-- Choise ROLE--</option>
         <option value="1">ROLE 1</option>
         <option value="2">ROLE 2</option>
-    </select>
-    <input type="type" id="keySearch"  placeholder="Search Your Name Or Password" />
+    </select>   
+    <input type="text" id="keySearch"  placeholder="Search Your Name Or Password" />
     <button onclick="searchFunction()" id="buttonCari">Search</button>
+    <br><a href="/Users/home">Users Page</a>
     <br /><br />
           <table id="table" border="1" width="300px">
               <thead>
                   <tr>
+                      <td>Id</td>
                       <td>nama >< Password </td>
                       <td>Password >< nama</td>
                       <td>Role</td>
@@ -119,8 +121,8 @@
                     $.each(response.data,
 
                         function (index, value) {
-
-                            userVar += '<tr><td>' + value.password +
+                            userVar += '<tr><td>' + value.idCon + '</td>'
+                            userVar += '<td>' + value.password +
                                 '</td><td>' + value.username + '</td><td>' +
                                 value.role +
                                 '</td><td>' + '<input type="button" value="Edit" onclick="Edits(' + value.idCon + ')">' +
@@ -156,7 +158,8 @@
                     $('#tableBody').empty();
                     $.each(response.data,
                         function (index, value) {
-                            userVar += '<tr><td>' + value.password +
+                            userVar += '<tr><td>' + value.idCon + '</td>'
+                            userVar += '<td>' + value.password +
                                 '</td><td>' + value.username + '</td><td>' +
                                 value.role +
                                 '</td><td>' + '<input type="button" value="Edit" onclick="Edits(' + value.idCon + ')">' +
@@ -186,7 +189,8 @@
                     $('#tableBody').empty();
                     $.each(response.data,
                         function (index, value) {
-                            userVar += '<tr><td>' + value.password +
+                            userVar += '<tr><td>'+value.idCon+'</td>'
+                            userVar += '<td>' + value.password +
                                 '</td><td>' + value.username + '</td><td>' +
                                 value.role +
                                 '</td><td>' + '<input type="button" value="Edit" onclick="Edits(' + value.idCon + ')">' +
@@ -269,7 +273,7 @@
     function GetAllUserPagination() {
         $.get('/Home/GetAllUserPagination?startIndex=' + page + '&pageSize=' + pageSize, function (data, status) {
             var json = JSON.parse(data);
-            GetAllUsers();
+           // GetAllUsers();
             console.log(json);
             drawPaging(json.pageCount);
         });
